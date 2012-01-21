@@ -1,17 +1,18 @@
 <?
 /** include the Genability PHP Library */
-  phpinfo();  
+// MIHLE: make sure to mongo.so in the right directory and add 'extension=mongo.so' to PHP.ini file located in /etc
+/**  phpinfo();  **/
 
-// connect
+// assumes connection to local database 
 $m = new Mongo();
 
 // select a database
-$db = $m->comedy;
+$db = $m->wattquiz;
 
 // select a collection (analogous to a relational database's table)
-$collection = $db->cartoons;
+$collection = $db->questions;
 
-// add a record
+// add a record 
 $obj = array( "title" => "Calvin and Hobbes", "author" => "Bill Watterson" );
 $collection->insert($obj);
 
@@ -30,16 +31,4 @@ foreach ($cursor as $obj) {
 
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Genability API PHP Library :: Examples :: calculate.php</title>
-	<link rel="stylesheet" href="../static/genability_php_library.css">
-	<link rel="stylesheet" href="../static/cupertino/jquery-ui-1.8.15.custom.css">
-</head>
-<body>
-<div id="genabilityExample">
-Test Load/Retrieve of Mongo Data!!!!
-</div>
-</body>
-</html>
+
