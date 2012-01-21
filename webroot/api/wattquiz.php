@@ -22,14 +22,30 @@ class wattquiz {
 
 
 	/**
-	 * answerQuestion answers a question
+	 * getQuestion gets you a question to answer
 	 */
-	function getNextQuestion($params) {
+	function getQuestion($params) {
 
-		if ($params['previousQuestionId']) {
+		if ($params['answeredCorrectly'] == true) {
 			// get the next question from mongodb using the userId and the questionId
-			$question = array('questionId' => '2', 
-			    'questionText' => 'What will score first',
+			$findQuestionId = '3';//$params['previousQuestionId'] + 1
+			$question = array('questionId' => $findQuestionId, 
+			    'questionText' => 'Which team is the greatest',
+			    'questionType' => 'multi-choice',
+			    'wattValue' => 1,
+			    'broughtBy' => 'Genability',
+			    'answers' => array(
+			        array('answerId' => 'a','answerValue' => '49ers'),
+			        array('answerId' => 'b','answerValue' => '49ers'),
+			        array('answerId' => 'c','answerValue' => '49ers'),
+			        array('answerId' => 'd','answerValue' => '49ers')
+			        )
+			);
+		} else if ($params['previousQuestionId']) {
+			// get the next question from mongodb using the userId and the questionId
+			$findQuestionId = '2';//params['previousQuestionId']
+			$question = array('questionId' => $findQuestionId, 
+			    'questionText' => 'Who will score first',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 1,
 			    'broughtBy' => 'Genability',
@@ -42,7 +58,8 @@ class wattquiz {
 			);
 		} else {
 			// get the first quesiton from mongodb
-			$question = array('questionId' => '1', 
+			$findQuestionId = '1';
+			$question = array('questionId' => $findQuestionId, 
 			    'questionText' => 'Who will win the superbowl',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 1,
@@ -59,7 +76,37 @@ class wattquiz {
 		if ($this->config['debug']) { echo $question; }
 		
 		return $question;
-	}
+		
+	} // end of getQuestion method
+
+
+	/**
+	 * answerQuestion to submit an answer to a question
+	 */
+/*
+	function answerQuestion($params) {
+
+        if ($params['answerId'] == 'a') {
+		    $correct = true;
+		else {
+			$correct = false;
+		}
+		
+		if ($correct) {
+			// get the appropriate question
+			$question = getQuestion(array(
+			  'answeredCorrectly' => $correct              // whether they got it right or not
+			  'previousQuestionId'=> $QUESTION_ID,         // Unique ID for the previous question (Optional)
+			  'userId'            => $USER_ID              // ID of the user answering the question (Required)
+			));
+
+
+		if ($this->config['debug']) { echo $result; }
+		
+		return $question;
+		
+	} // end of answerQuestion method
+*/
 	
 }
 
