@@ -93,13 +93,32 @@ class wattquiz {
 			$correct = false;
 		}
 		
+		$questionId = $params['questionId'];
+		$userId = $params['userId'];
+		
 		// get the appropriate question
-		$question = this.getQuestion(array(
+		/*
+		$question = getQuestion(array(
 		  'answeredCorrectly' => $correct,             // whether they got it right or not
-		  'previousQuestionId'=> $QUESTION_ID,         // Unique ID for the previous question (Optional)
-		  'userId'            => $USER_ID              // ID of the user answering the question (Required)
+		  'previousQuestionId'=> $questionId,         // Unique ID for the previous question (Optional)
+		  'userId'            => $userId              // ID of the user answering the question (Required)
 		));
+		*/
 
+		$question = array('questionId' => '99', 
+		    'questionText' => 'Who will win the superbowl',
+		    'questionType' => 'multi-choice',
+		    'wattValue' => 1,
+		    'broughtBy' => 'Genability',
+		    'answers' => array(
+		        array('answerId' => 'a','answerValue' => '49ers'),
+		        array('answerId' => 'b','answerValue' => '49ers'),
+		        array('answerId' => 'c','answerValue' => '49ers'),
+		        array('answerId' => 'd','answerValue' => '49ers')
+		        )
+		);
+	
+		
 		if ($this->config['debug']) { echo $result; };
 		
 		return $question;
