@@ -104,7 +104,7 @@ class wattquiz {
 	 */
 	function answerQuestion($params) {
 
-        if ($params['answerId'] == 'a') {
+        if ($params['answerId'] == "a") {
 		    $correct = true;
 		}
 		else 
