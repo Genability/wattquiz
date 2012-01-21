@@ -84,6 +84,7 @@ li.answer .loader {
 </style>
 
 	<script src="static/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+	<script src="static/js/jquery.json-2.3.min.js" type="text/javascript"></script>
 <script>
 $(function (){
 	function getQuestion() {
@@ -93,12 +94,12 @@ $(function (){
 			url: "api/question.php",
 			contentType: "application/json; charset=utf-8",
 			success: function(data, textStatus) {
-				$('<h2/>').attr('class', 'question').text(data.questionText).appendTo($("#questionCont"));
+				$('<h2/>').attr('id', 'question').attr('questionId', data.questionId).text(data.questionText).appendTo($("#questionCont"));
 				switch (data.questionType) {
 					case "multi-choice":
 						var choices = $('<ul/>').attr('class', 'answers');
 						for (answer in data.answers) {
-							$('<li/>').attr('class', 'answer alert-message warning').text(data.answers[answer].answerValue).appendTo(choices);
+							$('<li/>').attr('class', 'answer alert-message warning').attr('answerId', data.answers[answer].answerId).text(data.answers[answer].answerValue).appendTo(choices);
 						}
 						choices.appendTo($("#questionCont"));
 						break;
@@ -132,6 +133,35 @@ $('li.answer').live('click', function() {
 			$(this).addClass('disabled');
 		});
 		$(this).append('<img class="loader" src="static/images/ajax-loader.gif"/>');
+
+		var payload = {};
+		
+		if ($("#ti_dataValue").val() != '' && $("#ti_dataValue").val() != undefined) {
+			payload['keyName'] = $("#ti_keyName").val();
+			payload['dataValue'] = $("#ti_dataValue").val();
+		}
+
+		payload['questionId'] = $("#question").attr('questionId');
+		payload['answerId'] = $(this).attr('answerId');
+
+		console.log(payload);
+
+		encoded = $.toJSON(payload);
+
+		$.ajax({
+			type: 'POST',
+			dataType: 'json',
+			url: "api/question.php",
+			contentType: "application/json; charset=utf-8",
+			data: encoded,
+			success: function(data, textStatus) {
+				console.log(data);
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				console.log(textStatus + " " + errorThrown);
+			}
+		});
+
 	}
 });
 </script>
