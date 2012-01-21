@@ -67,7 +67,74 @@ html, body {
 	font-family: 'Qwigley', cursive;
 	font-size: 3em;
 }
+
+ul.answers {
+	margin: 0;
+}
+
+li.answer {
+	list-style: none;
+	margin-bottom: 6px;
+	cursor: pointer;
+}
+
+li.answer .loader {
+	margin-left: 25px;
+}
 </style>
+
+	<script src="static/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script>
+$(function (){
+	function getQuestion() {
+		$.ajax({
+			type: 'GET',
+			dataType: 'json',
+			url: "api/question.php",
+			contentType: "application/json; charset=utf-8",
+			success: function(data, textStatus) {
+				$('<h2/>').attr('class', 'question').text(data.questionText).appendTo($("#questionCont"));
+				switch (data.questionType) {
+					case "multi-choice":
+						var choices = $('<ul/>').attr('class', 'answers');
+						for (answer in data.answers) {
+							$('<li/>').attr('class', 'answer alert-message warning').text(data.answers[answer].answerValue).appendTo(choices);
+						}
+						choices.appendTo($("#questionCont"));
+						break;
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				console.log(textStatus + " " + errorThrown);
+			}
+		});
+	}
+	
+	getQuestion();
+});
+
+$('li.answer').live('hover', function() {
+	if (!$(this).hasClass('disabled'))
+		$(this).removeClass('warning').addClass('info');
+});
+
+$('li.answer').live('mouseout', function() {
+	if (!$(this).hasClass('disabled'))
+		$(this).removeClass('info').addClass('warning');
+});
+
+$('li.answer').live('click', function() {
+	if ($(this).hasClass('disabled')) {
+		return false;
+	} else {
+		$(this).addClass('info');
+		$('li.answer').each(function() {
+			$(this).addClass('disabled');
+		});
+		$(this).append('<img class="loader" src="static/images/ajax-loader.gif"/>');
+	}
+});
+</script>
 	
 </head>
 
@@ -76,11 +143,11 @@ html, body {
 <div class="container">
 <div class="hero-unit">
 	<h1>Watt Quiz</h1>
-	<p>A simple social quiz, a la freerice.com, that asks you questions and educates you about your energy. Correct answers generate watts that are donated to worthly charities.</p>
+	<p>A simple social quiz, a la freerice.com, that asks you questions and educates you about your energy. Correct answers generate watts that are donated to worthy charities.</p>
 </div>
 <div class="content">
 <div class="row">
-	<div class="span11">questions</div>
+	<div id="questionCont" class="span11"></div>
 	<div class="span5 quizStatus">
 		<h3>You have answered 4/10 questions correctly!</h3>
 		<div class="lightbulbCont">
@@ -91,7 +158,7 @@ html, body {
 </div>
 	
 <div class="poweredby">
-	<div class="pb">using data and apis from</div>
+	<div class="pb">using apis and data from</div>
 </div>
 <img src="static/images/logos/nyc_opendata.png"/>
 <img src="static/images/logos/genability.png"/>
