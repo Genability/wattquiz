@@ -81,6 +81,10 @@ li.answer {
 li.answer .loader {
 	margin-left: 25px;
 }
+
+.answerExplanation {
+	margin-top: 35px;
+}
 </style>
 
 	<script src="static/js/jquery-1.7.1.min.js" type="text/javascript"></script>
@@ -156,6 +160,13 @@ $('li.answer').live('click', function() {
 			data: encoded,
 			success: function(data, textStatus) {
 				console.log(data);
+				if (data.answerResult == true) {
+					$('.answer.info').removeClass('info').addClass('success');
+				} else {
+					$('.answer.info').removeClass('info').addClass('error');
+					$('<p/>').attr('class', 'alert-message block-message error answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
+					$('<a/>').attr('class', 'btn big').text('Next Question').appendTo($('#questionCont'));
+				}
 			},
 			error: function(xhr, textStatus, errorThrown) {
 				console.log(textStatus + " " + errorThrown);
