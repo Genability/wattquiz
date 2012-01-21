@@ -22,8 +22,9 @@ if($QUESTION_ID && $ANSWER_ID) {
 	
 	// make the answerQuestion call
 	$question = $wq->answerQuestion(array(
-	  'previousQuestionId'=> $QUESTION_ID,         // Unique ID for the previous question (Optional)
-	  'userId'            => $USER_ID              // ID of the user answering the question (Required)
+	  'questionId'=> $QUESTION_ID,         // Unique ID for the question (required)
+	  'answerId'  => $ANSWER_ID,           // Unique ID for the answer (required)
+	  'userId'    => $USER_ID              // ID of the user answering the question (Required)
 	));	
 	
 }
