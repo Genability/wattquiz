@@ -88,7 +88,6 @@ li.answer .loader {
 </style>
 
 	<script src="static/js/jquery-1.7.1.min.js" type="text/javascript"></script>
-	<script src="static/js/jquery.json-2.3.min.js" type="text/javascript"></script>
 <script>
 $(function (){
 	function getQuestion() {
@@ -98,16 +97,7 @@ $(function (){
 			url: "api/question.php",
 			contentType: "application/json; charset=utf-8",
 			success: function(data, textStatus) {
-				$('<h2/>').attr('id', 'question').attr('questionId', data.questionId).text(data.questionText).appendTo($("#questionCont"));
-				switch (data.questionType) {
-					case "multi-choice":
-						var choices = $('<ul/>').attr('class', 'answers');
-						for (answer in data.answers) {
-							$('<li/>').attr('class', 'answer alert-message warning').attr('answerId', data.answers[answer].answerId).text(data.answers[answer].answerValue).appendTo(choices);
-						}
-						choices.appendTo($("#questionCont"));
-						break;
-				}
+				displayQuestion(data);
 			},
 			error: function(xhr, textStatus, errorThrown) {
 				console.log(textStatus + " " + errorThrown);
@@ -117,6 +107,20 @@ $(function (){
 	
 	getQuestion();
 });
+
+function displayQuestion(data) {
+	$("#questionCont").html('');
+	$('<h2/>').attr('id', 'question').attr('questionid', data.questionId).text(data.questionText).appendTo($("#questionCont"));
+	switch (data.questionType) {
+		case "multi-choice":
+			var choices = $('<ul/>').attr('class', 'answers');
+			for (answer in data.answers) {
+				$('<li/>').attr('class', 'answer alert-message warning').attr('answerid', data.answers[answer].answerId).text(data.answers[answer].answerValue).appendTo(choices);
+			}
+			choices.appendTo($("#questionCont"));
+			break;
+	}
+}
 
 $('li.answer').live('hover', function() {
 	if (!$(this).hasClass('disabled'))
@@ -139,34 +143,33 @@ $('li.answer').live('click', function() {
 		$(this).append('<img class="loader" src="static/images/ajax-loader.gif"/>');
 
 		var payload = {};
-		
-		if ($("#ti_dataValue").val() != '' && $("#ti_dataValue").val() != undefined) {
-			payload['keyName'] = $("#ti_keyName").val();
-			payload['dataValue'] = $("#ti_dataValue").val();
-		}
 
-		payload['questionId'] = $("#question").attr('questionId');
-		payload['answerId'] = $(this).attr('answerId');
+		payload['questionId'] = $("#question").attr('questionid');
+		payload['answerId'] = $(this).attr('answerid');
 
 		console.log(payload);
-
-		encoded = $.toJSON(payload);
 
 		$.ajax({
 			type: 'POST',
 			dataType: 'json',
 			url: "api/question.php",
-			contentType: "application/json; charset=utf-8",
-			data: encoded,
+			data: payload,
 			success: function(data, textStatus) {
+				$('.answer .loader').remove();
 				console.log(data);
 				if (data.answerResult == true) {
 					$('.answer.info').removeClass('info').addClass('success');
+					$('<p/>').attr('class', 'alert-message block-message success answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
+					$('<a/>').attr('class', 'btn big nextQuestion').text('Next Question').appendTo($('#questionCont'));
 				} else {
 					$('.answer.info').removeClass('info').addClass('error');
 					$('<p/>').attr('class', 'alert-message block-message error answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
-					$('<a/>').attr('class', 'btn big').text('Next Question').appendTo($('#questionCont'));
+					$('<a/>').attr('class', 'btn big nextQuestion').text('Next Question').appendTo($('#questionCont'));
 				}
+
+				$('.nextQuestion').click(function () {
+					displayQuestion(data);
+				});
 			},
 			error: function(xhr, textStatus, errorThrown) {
 				console.log(textStatus + " " + errorThrown);
