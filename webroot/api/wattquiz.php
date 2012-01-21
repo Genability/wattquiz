@@ -83,30 +83,28 @@ class wattquiz {
 	/**
 	 * answerQuestion to submit an answer to a question
 	 */
-/*
 	function answerQuestion($params) {
 
         if ($params['answerId'] == 'a') {
 		    $correct = true;
-		else {
+		}
+		else 
+		{
 			$correct = false;
 		}
 		
-		if ($correct) {
-			// get the appropriate question
-			$question = getQuestion(array(
-			  'answeredCorrectly' => $correct              // whether they got it right or not
-			  'previousQuestionId'=> $QUESTION_ID,         // Unique ID for the previous question (Optional)
-			  'userId'            => $USER_ID              // ID of the user answering the question (Required)
-			));
+		// get the appropriate question
+		$question = this.getQuestion(array(
+		  'answeredCorrectly' => $correct,             // whether they got it right or not
+		  'previousQuestionId'=> $QUESTION_ID,         // Unique ID for the previous question (Optional)
+		  'userId'            => $USER_ID              // ID of the user answering the question (Required)
+		));
 
-
-		if ($this->config['debug']) { echo $result; }
+		if ($this->config['debug']) { echo $result; };
 		
 		return $question;
 		
 	} // end of answerQuestion method
-*/
 	
 }
 
