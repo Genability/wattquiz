@@ -29,7 +29,26 @@ class wattquiz {
 		if ($params['answeredCorrectly'] == true) {
 			// get the next question from mongodb using the userId and the questionId
 			$findQuestionId = '3';//$params['previousQuestionId'] + 1
-			$question = array('questionId' => $findQuestionId, 
+			$question = array('answerResult' => true,
+			    'answerTip' => 'You know your football',
+			    'questionId' => $findQuestionId, 
+			    'questionText' => 'Which team is the greatest',
+			    'questionType' => 'multi-choice',
+			    'wattValue' => 1,
+			    'broughtBy' => 'Genability',
+			    'answers' => array(
+			        array('answerId' => 'a','answerValue' => '49ers'),
+			        array('answerId' => 'b','answerValue' => '49ers'),
+			        array('answerId' => 'c','answerValue' => '49ers'),
+			        array('answerId' => 'd','answerValue' => '49ers')
+			        )
+			);
+		} else if ($params['answeredCorrectly'] == false) {
+			// get the next question from mongodb using the userId and the questionId
+			$findQuestionId = '3';//$params['previousQuestionId'] + 1
+			$question = array('answerResult' => false,
+			    'answerTip' => 'They are from the bay area',
+				'questionId' => $findQuestionId, 
 			    'questionText' => 'Which team is the greatest',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 1,
