@@ -73,11 +73,13 @@ class wattquiz {
 				$collection = $db->wattUser;
 				$collection->update(
 				    array('userId' => $userId),
-				    array('$inc' => array("questionsAnswered" => 1),
-				        '$inc' => array("totalWatts" => $question[wattValue]),
+				    array('$inc' => array("totalWatts" => $question[wattValue]),
 				        '$set' => array("lastCorrectQuestionId" => $questionId), )
 				);
-				
+				$collection->update(
+				    array('userId' => $userId),
+				    array('$inc' => array("questionsAnswered" => 1))
+				);
 			    $questionId++;
 			    $question = $this->_getQuestionFromMongo($userId, $questionId);
 			    break;
