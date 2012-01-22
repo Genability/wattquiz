@@ -78,7 +78,7 @@ class wattquiz {
 		} else {
 			// get the first quesiton from mongodb
 			$findQuestionId = '1';
-			$question = getQuestion($params['userId'],null);
+			$question = getQuestionFromMongo($params['userId'],null);
 		}
 
 		if ($this->config['debug']) { echo $question; }
@@ -205,7 +205,7 @@ class wattquiz {
 	* Get question based on user and previous question
 	*/
 
-	function getQuestion($userId, $previousQuestionId){
+	function getQuestionFromMongo($userId, $previousQuestionId){
 	
 	$m = new Mongo();
 	$db = $m->wattquiz;
