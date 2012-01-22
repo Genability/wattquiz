@@ -1,6 +1,12 @@
 <?php
 
+/** include the Genability PHP Library */
+require_once('genability.php');
+
 class wattquiz {
+	
+	
+	private $gen;
 	
 	/**
 	 * Creates a new wattquiz object
@@ -21,6 +27,12 @@ class wattquiz {
 		// setup mongo
 		//$this->$m = new Mongo();
 		//$this->$db = $m->wattquiz;
+		
+		$gen = new genability(array(
+		  'app_id'  => '6830fbc2',
+		  'app_key' => '5811743465758e20a3fc15aee0853936',
+		  'debug'   => false,
+		));
 	}
 
 
