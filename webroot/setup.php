@@ -63,7 +63,7 @@ $question3 = array(
 			    'questionText' => 'Which government initiative allows consumers to download their detailed energy usage?',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 1,
-			    'broughtBy' => 'Executive Office',
+			    'broughtBy' => 'CTO of USA',
 			    'answerTip' => 'Green button is modelled after Blue Button but for details your energy use.',			    
 			    'answers' => array(
 			        array('answerId' => 'a','answerValue' => 'Blue Button', 'answerRank' => 3),
@@ -136,7 +136,7 @@ $question8 = array(
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 3,
 			    'broughtBy' => 'San Francisco 49ers',
-			    'answerTip' => 'Your consumption went down during business hours.',			    
+			    'answerTip' => 'C\'mon son!',			    
 			    'answers' => array(
 			        array('answerId' => 'a','answerValue' => 'New York Giants', 'answerRank' => 2),
 			        array('answerId' => 'b','answerValue' => 'San Francisco 49ers', 'answerRank' => 1),
