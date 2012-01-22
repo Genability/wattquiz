@@ -40,16 +40,14 @@ $question1 = array(
 
 $question2 = array(
 			    'questionId' => 2, 
-			    'questionText' => 'Which team will win tomorrow?',
+			    'questionText' => 'If you don\'t expect to be home during business hours, would moving to a time of use rate plan make sense?',
 			    'questionType' => 'multi-choice',
-			    'wattValue' => 5,
+			    'wattValue' => 2,
 			    'broughtBy' => 'Acme questions',
 			    'answerTip' => 'In the winter months, people use more electricity to heat their homes!',			    
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => 'Patriots', 'answerRank' => 4),
-			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => 2),
-			        array('answerId' => 'c','answerValue' => 'Ravens', 'answerRank' => 3),
-			        array('answerId' => 'd','answerValue' => '49ers', 'answerRank' => 1),
+			        array('answerId' => 'a','answerValue' => 'Yes', 'answerRank' => 1),
+			        array('answerId' => 'b','answerValue' => 'No', 'answerRank' => 2)
 			        )
 			);
 
@@ -57,9 +55,9 @@ $question3 = array(
 			    'questionId' => 3, 
 			    'questionText' => 'Who will win the super bowl?',
 			    'questionType' => 'multi-choice',
-			    'wattValue' => 7,
+			    'wattValue' => 3,
 			    'broughtBy' => 'Genability',
-			    'answerTip' => 'You know this man!',			    
+			    'answerTip' => 'Turning off heating and air conditionining when you\'re away will save money on time of use based plans.',			    
 			    'answers' => array(
 			        array('answerId' => 'a','answerValue' => 'Ravens', 'answerRank' => 3),
 			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => 2),
