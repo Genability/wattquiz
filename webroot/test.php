@@ -21,6 +21,15 @@
 	
 	</form>
 	
+	<h3>Add or Get User</h3>
+	<form method="post" action="api/user.php">
+	
+	   userId: <input type="text" name="userId">
+	
+	   <input type="submit" value="Get or Add">
+	
+	</form>
+	
 	<h3>Answer a question</h3>
 	<form method="post" action="api/question.php">
 	

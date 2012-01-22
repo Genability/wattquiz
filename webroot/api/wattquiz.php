@@ -28,7 +28,7 @@ class wattquiz {
 		//$this->$m = new Mongo();
 		//$this->$db = $m->wattquiz;
 		
-		$gen = new genability(array(
+		$this->gen = new genability(array(
 		  'app_id'  => '6830fbc2',
 		  'app_key' => '5811743465758e20a3fc15aee0853936',
 		  'debug'   => false,
@@ -54,7 +54,7 @@ class wattquiz {
 			$question = $this->_getQuestionFromMongo($params['userId'],$questionId);
 		} else {
 			// get the first question from mongodb
-			$question = $this->_getQuestionFromMongo($params['userId'],null);
+			$question = $this->_getQuestionFromMongo($params['userId'],1);
 		}
 
 		if ($this->config['debug']) { echo $question; }
@@ -164,7 +164,8 @@ class wattquiz {
 			'greenButtonCount' => 0,
 			'totalWatts' => 0,
 			'rank' => 0,
-			'lastCorrectQuestionId' => 0
+			'lastCorrectQuestionId' => 0,
+			'accountId' => null,
 		);
 				
 		// select the user collection 
@@ -198,6 +199,33 @@ class wattquiz {
 	} // end of _getQuestionFromMongo
 	
 	
+	
+	function addGenAccount($userId) {
+		
+		//if ($key != "providerOrgId" && $key != "accountName" && $key != "customerOrgName" && $key != "providerAccountId")
+		
+		$x = array(
+			//"providerOrgId" => "eecb537f-584b-40e4-91b6-2a615198ecdb",
+			"accountName" => "Green Button",
+			"providerAccountId" => $userId,
+			);
+			
+		$result = $this->gen->addAccount($x);
+		
+		print_r($result);
+		
+		// check if account already exists
+		if($result["status"] == "error") {
+			$findAccount = array(
+				"providerAccountId" => $userId,
+				);
+				
+			$result = $this->gen->getAccounts($findAccount);
+		}
+		
+		return $result;
+		
+	}
 	
 	
 }
