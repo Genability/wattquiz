@@ -3,6 +3,9 @@
 if ($_POST['userId']) {
 	$USER_ID = $_POST['userId'];
 }
+else if ($_GET['userId']) {
+	$USER_ID = $_GET['userId'];
+}
 else
 {
 	header("Location: http://local.wattquiz.com/");

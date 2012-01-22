@@ -2,7 +2,6 @@
 
 class wattquiz {
 	
-
 	/**
 	 * Creates a new wattquiz object
 	 *
@@ -18,6 +17,10 @@ class wattquiz {
 			),
 			$config
 		);
+		
+		// setup mongo
+		//$this->$m = new Mongo();
+		//$this->$db = $m->wattquiz;
 	}
 
 
@@ -108,10 +111,6 @@ class wattquiz {
 		// Save the answer with the user.
 		//
 		//TODO
-
-		// add another record, with a different "shape"
-		$obj = array( "title" => "XKCD", "online" => true );
-		$collection->insert($obj);
 		
 		// get the appropriate question
 		$question = $this->getQuestion(array(
@@ -132,17 +131,13 @@ class wattquiz {
 	 */
 	function getUser($userId) {
 		
-		// connect
-		$m = new Mongo();
-
-		// select a database
-		$db = $m->wattquiz;
-		
 		// find the user by their id
+		$m = new Mongo();
+		$db = $m->wattquiz;
 		$collection = $db->wattUser;
 		$user = $collection->findOne(array('userId' => $userId));
 		
-		if($user == '') {
+		if(empty($user)) {
 			$user = $this->_addUser($userId);
 		}
 		
@@ -151,19 +146,12 @@ class wattquiz {
 	} // end of getUser
 
 	function _addUser($userId) {
-		
-		// connect
-		$m = new Mongo();
-
-		// select a database
-		$db = $m->wattquiz;
 
 		$gravatarHash = md5( strtolower( trim( $userId ) ) );
 		// then the URL is...
 		//http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y
 		
 		$user = array(
-//			'_id' => $userId,
 			'userId' => $userId,
 			'gravatarHash' => $gravatarHash,
 			'questionsAnswered' => 0,
@@ -174,7 +162,10 @@ class wattquiz {
 		);
 				
 		// select the user collection 
+		$m = new Mongo();
+		$db = $m->wattquiz;
 		$collection = $db->wattUser;
+		//$collection.ensureIndex(array('userId' => 1), array('unique' => true));
 		$collection->insert($user);
 		
 		return $user;
@@ -186,6 +177,11 @@ class wattquiz {
 	 * Get the leader board.
 	 */
 	function getLeaderboard() {
+		
+		//$db = $this->$m->wattquiz;
+		//$collection = $db->wattUser;
+		//$cursor = $collection->find();// top n sorted by totalWatts
+		//$leaderboard = iterator_to_array($cursor);
 		
 		$leaderboard = array(
 			'_id' => 'obama',
