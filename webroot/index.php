@@ -15,8 +15,12 @@ html, body {
 	background-color: #eee;
 }
 
+.topbar .fill {
+	height: 40px;
+}
+
 .hero-unit {
-	margin: 25px -20px 15px;
+	margin: 50px -20px 15px;
 	padding: 35px;
 	border: 2px solid #ccc;
 }
@@ -90,6 +94,29 @@ li.answer .loader {
 	<script src="static/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 <script>
 $(function (){
+	$("#user").submit(function (e) {
+		e.preventDefault();
+
+		payload = {};
+		payload["userId"] = $("#userId").val();
+
+		console.log(payload);
+	
+		$.ajax({
+			type: 'POST',
+			dataType: 'json',
+			url: "api/user.php",
+			data: payload,
+			success: function(data, textStatus) {
+				console.log(data);
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				console.log(textStatus + " " + errorThrown);
+			}
+		});
+
+	});
+
 	function getQuestion() {
 		$.ajax({
 			type: 'GET',
@@ -183,6 +210,17 @@ $('li.answer').live('click', function() {
 </head>
 
 <body>
+
+<div class="topbar">
+	<div class="fill">
+		<div class="container">
+			<form id="user" action="" class="pull-right">
+				<input id="userId" class="input-big" type="text" name="userId" placeholder="Email">
+				<button class="btn" type="submit">Sign in</button>
+			</form>
+		</div>
+	</div>
+</div>
 
 <div class="container">
 <div class="hero-unit">
