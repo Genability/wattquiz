@@ -1,7 +1,7 @@
 <?php
 
 class wattquiz {
-
+	
 
 	/**
 	 * Creates a new wattquiz object
@@ -115,9 +115,18 @@ class wattquiz {
 		$questionId = $params['questionId'];
 		$userId = $params['userId'];
 		
+		//
+		// Save the answer with the user.
+		//
+		//TODO
+
+		// add another record, with a different "shape"
+		$obj = array( "title" => "XKCD", "online" => true );
+		$collection->insert($obj);
+		
 		// get the appropriate question
 		$question = $this->getQuestion(array(
-		  'answeredCorrectly' => $correct,             // whether they got it right or not
+		  'answeredCorrectly' => $correct,            // whether they got it right or not
 		  'previousQuestionId'=> $questionId,         // Unique ID for the previous question (Optional)
 		  'userId'            => $userId              // ID of the user answering the question (Required)
 		));
@@ -128,6 +137,81 @@ class wattquiz {
 		return $question;
 		
 	} // end of answerQuestion method
+	
+	/**
+	 * Get the user object with their information.
+	 */
+	function getUser($userId) {
+		
+		// connect
+		$m = new Mongo();
+
+		// select a database
+		$db = $m->wattquiz;
+		
+		// find the user by their id
+		$collection = $db->wattUser;
+		$user = $collection->findOne(array('userId' => $userId));
+		
+		if($user == '') {
+			$user = $this->_addUser($userId);
+		}
+		
+		return $user;
+		
+	} // end of getUser
+
+	function _addUser($userId) {
+		
+		// connect
+		$m = new Mongo();
+
+		// select a database
+		$db = $m->wattquiz;
+
+		$gravatarHash = md5( strtolower( trim( $userId ) ) );
+		// then the URL is...
+		//http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y
+		
+		$user = array(
+//			'_id' => $userId,
+			'userId' => $userId,
+			'gravatarHash' => $gravatarHash,
+			'questionsAnswered' => 0,
+			'greenButtonCount' => 0,
+			'totalWatts' => 0,
+			'rank' => 0,
+			'lastCorrectAnswerId' => 0
+		);
+				
+		// select the user collection 
+		$collection = $db->wattUser;
+		$collection->insert($user);
+		
+		return $user;
+		
+	} // end of addUser
+	
+	
+	/**
+	 * Get the leader board.
+	 */
+	function getLeaderboard() {
+		
+		$leaderboard = array(
+			'_id' => 'obama',
+			'greenButtonCount' => 2,
+			'gravatarHash' => '',
+			'questionsAnswered' => 10,
+			'totalWatts' => 22,
+			'rank' => 1,
+			'lastCorrectAnswerId' => 1
+		);
+		
+		return $leaderboard;
+		
+	}
+	
 	
 }
 

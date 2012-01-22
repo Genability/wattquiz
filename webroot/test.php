@@ -24,5 +24,14 @@
 	</form>
 
 
+	<form method="post" action="api/user.php">
+	
+	   userId: <input type="text" name="userId">
+	
+	   <input type="submit" value="Get or Add">
+	
+	</form>
+	
+
 </body>
 </html>
