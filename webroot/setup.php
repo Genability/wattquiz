@@ -44,7 +44,7 @@ $question2 = array(
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 2,
 			    'broughtBy' => 'Acme questions',
-			    'answerTip' => 'Consumption is measured over a time interval.',			    
+			    'answerTip' => 'Green button is modelled after Blue Button but for details your energy use.',			    
 			    'answers' => array(
 			        array('answerId' => 'a','answerValue' => 'killowatts', 'answerRank' => 3),
 			        array('answerId' => 'b','answerValue' => 'megawatts', 'answerRank' => 2),
