@@ -25,44 +25,59 @@ $collection = $db->question;
 
 $question1 = array(
 			    'questionId' => 1, 
-			    'questionText' => 'Using 1008 kWh consumption this month, how much would you expect to pay for electricity in New York?',
+			    'questionText' => 'Which government initiative allows consumers to download their detailed energy usage?',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 1,
 			    'broughtBy' => 'Genability',
-			    'answerTip' => 'In the winter months, people use more electricity to heat their homes!',			    
+			    'answerTip' => 'Green button is modelled after Blue Button but for details your energy use.',			    
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => '$150-$250', 'answerRank' => 1),
-			        array('answerId' => 'b','answerValue' => '$250-$400', 'answerRank' => 2),
-			        array('answerId' => 'c','answerValue' => 'less than $150', 'answerRank' => 3),
-			        array('answerId' => 'd','answerValue' => 'over $400', 'answerRank' => 4),
+			        array('answerId' => 'a','answerValue' => 'Blue Button', 'answerRank' => 3),
+			        array('answerId' => 'b','answerValue' => 'Green Door', 'answerRank' => 2),
+			        array('answerId' => 'c','answerValue' => 'Green Button', 'answerRank' => 1),
+			        array('answerId' => 'd','answerValue' => 'Green Start', 'answerRank' => 4),
 			        )
 			);
 
 $question2 = array(
 			    'questionId' => 2, 
-			    'questionText' => 'If you don\'t expect to be home during business hours, would moving to a time of use rate plan make sense?',
+			    'questionText' => 'Consumption is measured by:',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 2,
 			    'broughtBy' => 'Acme questions',
-			    'answerTip' => 'In the winter months, people use more electricity to heat their homes!',			    
+			    'answerTip' => 'Consumption is measured over a time interval.',			    
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => 'Yes', 'answerRank' => 1),
-			        array('answerId' => 'b','answerValue' => 'No', 'answerRank' => 2)
+			        array('answerId' => 'a','answerValue' => 'killowatts', 'answerRank' => 3),
+			        array('answerId' => 'b','answerValue' => 'megawatts', 'answerRank' => 2),
+			        array('answerId' => 'c','answerValue' => 'killowatts per hour', 'answerRank' => 1),
+			        array('answerId' => 'd','answerValue' => 'megawatts per hour', 'answerRank' => 4),
 			        )
 			);
 
 $question3 = array(
 			    'questionId' => 3, 
-			    'questionText' => 'Who will win the super bowl?',
+			    'questionText' => 'True or False: Your cost of energy fluctuates during the day and changes at night?',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 3,
 			    'broughtBy' => 'Genability',
-			    'answerTip' => 'Turning off heating and air conditionining when you\'re away will save money on time of use based plans.',			    
+			    'answerTip' => 'Turning off heating and air conditionining when you\'re at work will save money on time of use based plans.',			    
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => 'Ravens', 'answerRank' => 3),
-			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => 2),
-			        array('answerId' => 'c','answerValue' => '49ers', 'answerRank' => 1),
-			        array('answerId' => 'd','answerValue' => 'Patriots', 'answerRank' => 4),
+			        array('answerId' => 'a','answerValue' => 'True', 'answerRank' => 1),
+			        array('answerId' => 'b','answerValue' => 'False', 'answerRank' => 2)
+			        )
+			);
+
+$question4 = array(
+			    'questionId' => 3, 
+			    'questionText' => 'Which Utility services your location?',
+			    'questionType' => 'multi-choice',
+			    'wattValue' => 3,
+			    'broughtBy' => 'Genability',
+			    'answerTip' => 'Turning off heating and air conditionining when you\'re at work will save money on time of use based plans.',			    
+			    'answers' => array(
+			        array('answerId' => 'a','answerValue' => 'Consolidated Edison Co-NY Inc', 'answerRank' => 1),
+			        array('answerId' => 'b','answerValue' => 'Pacific Gas and Electric', 'answerRank' => 2),
+			        array('answerId' => 'c','answerValue' => 'New York Energy Savings Corp.', 'answerRank' => 3),
+			        array('answerId' => 'd','answerValue' => 'Clay Electric Cooperative, Inc', 'answerRank' => 4)
 			        )
 			);
 
