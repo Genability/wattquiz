@@ -78,18 +78,7 @@ class wattquiz {
 		} else {
 			// get the first quesiton from mongodb
 			$findQuestionId = '1';
-			$question = array('questionId' => $findQuestionId, 
-			    'questionText' => 'Who will win the superbowl',
-			    'questionType' => 'multi-choice',
-			    'wattValue' => 1,
-			    'broughtBy' => 'Genability',
-			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => '49ers'),
-			        array('answerId' => 'b','answerValue' => '49ers'),
-			        array('answerId' => 'c','answerValue' => '49ers'),
-			        array('answerId' => 'd','answerValue' => '49ers')
-			        )
-			);
+			$question = getQuestion($params['userId'],null);
 		}
 
 		if ($this->config['debug']) { echo $question; }
@@ -212,6 +201,27 @@ class wattquiz {
 		
 	}
 	
+	/**
+	* Get question based on user and previous question
+	*/
+
+	function getQuestion($userId, $previousQuestionId){
+	
+	$m = new Mongo();
+	$db = $m->wattquiz;
+	$collection = $db->question;
+	//need to add user Id to query when complete
+
+	if (is_null($previousQuestionId) == false) {
+		$query = array("questionId" => $previousQuestionId );
+		$question = $collection->find( $query );
+	} else {
+		$question = $collection->findOne();
+	}
+
+	
+	return $question;
+	}
 	
 }
 
