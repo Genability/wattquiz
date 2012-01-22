@@ -286,12 +286,12 @@ $('li.answer').live('click', function() {
 <div class="content">
 	<? if($GREEN_BUTTON_DATA == 2) { ?>
 
-		<h3>Congrats! XXX has green button data.</h3>
+		<h3>Awesome! Your utility has green button data!</h3>
 		<p>Get it from their site and upload here or email to greenbutton@wattquiz.com</p>
 		<form action="https://api.genability.com/rest/beta/usage/bulk?appId=6830fbc2&appKey=5811743465758e20a3fc15aee0853936" method="post" enctype="multipart/form-data">
-			accountId:	<input type="text" name="accountId" value="<?$USER["accountId"]?>"/>
-		  	sourceId:   <input type="text" name="sourceId" id="sourceId" value="<?$USER["userId"]?>"/>
-		    fileFormat: <input type="text" name="fileFormat" value="espi">
+			<input type="hidden" name="accountId" value="<?=$USER["accountId"]?>"/>
+		  	<input type="hidden" name="sourceId" id="sourceId" value="<?=$USER["userId"]?>"/>
+		   	<input type="hidden" name="fileFormat" value="espi">
 
 		    <input type="file" name="fileData" id="fileData"/>
 
