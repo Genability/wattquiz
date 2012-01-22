@@ -23,9 +23,6 @@ $wq = new wattquiz(array(
 
 // make the getUser call
 $user = $wq->getUser( $USER_ID ); // ID of the user (Required)
-
-//TEMP
-$account = $wq->addGenAccount( $USER_ID );
 	
 
 // Send the JSON back

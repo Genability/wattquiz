@@ -125,6 +125,10 @@ class wattquiz {
 		if(empty($user)) {
 			$user = $this->_addUser($userId);
 		}
+		// else if($user["accountId"] == '')
+		// {
+		// 	todo - update the account - only to make life easier for dev
+		// }
 		
 		return $user;
 		
@@ -157,6 +161,9 @@ class wattquiz {
 		// then the URL is...
 		//http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y
 		
+		$account = $this->_addGenAccount( $userId );
+		$accountId = $account["results"][0]["accountId"];
+		
 		$user = array(
 			'userId' => $userId,
 			'gravatarHash' => $gravatarHash,
@@ -165,7 +172,7 @@ class wattquiz {
 			'totalWatts' => 0,
 			'rank' => 0,
 			'lastCorrectQuestionId' => 0,
-			'accountId' => null,
+			'accountId' => $accountId,
 		);
 				
 		// select the user collection 
@@ -200,7 +207,7 @@ class wattquiz {
 	
 	
 	
-	function addGenAccount($userId) {
+	function _addGenAccount($userId) {
 		
 		//if ($key != "providerOrgId" && $key != "accountName" && $key != "customerOrgName" && $key != "providerAccountId")
 		
@@ -210,20 +217,20 @@ class wattquiz {
 			"providerAccountId" => $userId,
 			);
 			
-		$result = $this->gen->addAccount($x);
-		
-		print_r($result[status]);
+		$json = $this->gen->addAccount($x);
+		$results = json_decode($json, true);
 		
 		// check if account already exists
-		if($result[status] = "error") {
+		if($results["status"] == "error") {
 			$findAccount = array(
 				"providerAccountId" => $userId,
 				);
 				
-			$result = $this->gen->getAccounts($findAccount);
+			$json = $this->gen->getAccounts($findAccount);
+			$results = json_decode($json, true);
 		}
 		
-		return $result;
+		return $results;
 		
 	}
 	
