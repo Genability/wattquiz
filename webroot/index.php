@@ -113,6 +113,14 @@ html, body {
 	font-size: 3em;
 }
 
+.poweredByLogos {
+	text-align: center;
+}
+
+.poweredByLogos img {
+	margin-right: 50px;
+}
+
 ul.answers {
 	margin: 0;
 }
@@ -185,6 +193,7 @@ $(function (){
 
 function displayQuestion(data) {
 	$("#questionCont").html('');
+	$('<p/>').attr('class', 'pull-right').text('This question is from ' + data.broughtBy).appendTo($("#questionCont"));
 	$('<h2/>').attr('id', 'question').attr('questionid', data.questionId).text(data.questionText).appendTo($("#questionCont"));
 	switch (data.questionType) {
 		case "multi-choice":
@@ -236,16 +245,17 @@ $('li.answer').live('click', function() {
 				if (data.answerResult == true) {
 					$('.answer.info').removeClass('info').addClass('success');
 					if (data.answerTip) {
-						$('<p/>').attr('class', 'alert-message block-message success answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
+						$('<p/>').attr('class', 'alert-message block-message success answerExplanation').text("You just earned " + data.wattValue + " watts!").appendTo($('#questionCont'));
 					}
-					$('.lightbulb').css('height', '50%');
+					$('<a/>').attr('class', 'btn big nextQuestion').text('Next Question').appendTo($('#questionCont'));
+					$('.lightbulb').css('height', data.questionId + '0%');
 				} else {
 					$('.answer.info').removeClass('info').addClass('error');
 					if (data.answerTip) {
 						$('<p/>').attr('class', 'alert-message block-message error answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
 					}
+					$('<a/>').attr('class', 'btn big nextQuestion').text('Try Again').appendTo($('#questionCont'));
 				}
-				$('<a/>').attr('class', 'btn big nextQuestion').text('Next Question').appendTo($('#questionCont'));
 				$('.nextQuestion').click(function () {
 					displayQuestion(data);
 				});
@@ -390,7 +400,6 @@ window.onload=init;
 			</div>
 		<div id="questionCont" class="span11"></div>
 		<div class="span5 quizStatus">
-			<h3>You have answered 4/10 questions correctly!</h3>
 			<div class="lightbulbCont">
 				<div class="lightbulb" style="height: 0%;"></div>
 			</div>
@@ -413,11 +422,12 @@ window.onload=init;
 <div class="poweredby">
 	<div class="pb">using apis and data from</div>
 </div>
-<img src="static/images/logos/nyc_opendata.png"/>
-<img src="static/images/logos/genability.png"/>
+<div class="poweredbyLogos">
+	<img src="static/images/logos/nyc_opendata.png"/>
+	<img src="static/images/logos/genability.png"/>
+</div>
 
 <footer>
-&copy; 2012
 </footer>
 
 </div>
