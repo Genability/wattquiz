@@ -235,18 +235,17 @@ $('li.answer').live('click', function() {
 					if (data.answerTip) {
 						$('<p/>').attr('class', 'alert-message block-message success answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
 					}
-					$('<a/>').attr('class', 'btn big nextQuestion').text('Next Question').appendTo($('#questionCont'));
 				} else {
 					$('.answer.info').removeClass('info').addClass('error');
 					if (data.answerTip) {
 						$('<p/>').attr('class', 'alert-message block-message error answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
 					}
-					$('<a/>').attr('class', 'btn big nextQuestion').text('Next Question').appendTo($('#questionCont'));
 				}
-
+				$('<a/>').attr('class', 'btn big nextQuestion').text('Next Question').appendTo($('#questionCont'));
 				$('.nextQuestion').click(function () {
 					displayQuestion(data);
 				});
+
 			},
 			error: function(xhr, textStatus, errorThrown) {
 				console.log(textStatus + " " + errorThrown);
@@ -301,7 +300,12 @@ $('li.answer').live('click', function() {
 		</form>
 <? } else if(isset($_SESSION['userId'])) { ?>
 	<div class="row">
-		<div id="questionCont" class="span11"></div>
+		<div id="questionCont" class="span11">
+			<div class="alert-message block-message info answerExplanation">
+				<p>Thanks for playing! You helped donate XX watts of power! Share your score with friends and get them to play to raise even more energy awareness!</p><br/>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-related="wattquiz" data-lang="en" data-size="large" data-count="none">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			</div>
+		</div>
 		<div class="span5 quizStatus">
 			<h3>You have answered 4/10 questions correctly!</h3>
 			<div class="lightbulbCont">
