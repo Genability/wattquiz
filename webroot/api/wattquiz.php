@@ -31,16 +31,18 @@ class wattquiz {
 
 		if ($params['answeredCorrectly'] == true) {
 			// get the next question from mongodb using the userId and the questionId
-			$question = getQuestionFromMongo($params['userId'],$params['previousQuestionId']);
+			$questionId = intval($params['previousQuestionId']) + 1;
+			$question = $this->_getQuestionFromMongo($params['userId'],$questionId);
 		} else if ($params['answeredCorrectly'] == false) {
 			// get the next question from mongodb using the userId and the questionId
-			$question = getQuestionFromMongo($params['userId'],$params['previousQuestionId']);
+			$questionId = intval($params['previousQuestionId']);
+			$question = $this->_getQuestionFromMongo($params['userId'],$questionId);
 		} else if ($params['previousQuestionId']) {
-			// get the next question from mongodb using the userId and the questionId
-			$question = getQuestionFromMongo($params['userId'],$params['previousQuestionId']);
+			$questionId = intval($params['previousQuestionId']) + 1;
+			$question = $this->_getQuestionFromMongo($params['userId'],$questionId);
 		} else {
-			// get the first quesiton from mongodb
-			$question = getQuestionFromMongo($params['userId'],null);
+			// get the first question from mongodb
+			$question = $this->_getQuestionFromMongo($params['userId'],null);
 		}
 
 		if ($this->config['debug']) { echo $question; }
@@ -103,7 +105,28 @@ class wattquiz {
 		return $user;
 		
 	} // end of getUser
-
+	
+	
+	/**
+	 * Get the leader board.
+	 */
+	function getLeaderboard() {
+		
+		$m = new Mongo();
+		$db = $m->wattquiz;
+		$collection = $db->wattUser;
+		$cursor = $collection->find();//TODO top n sorted by totalWatts
+		$leaderboard = iterator_to_array($cursor);
+		
+		return $leaderboard;
+		
+	}
+	
+	
+	/******************************************************************************************
+	 * Private Helper Methods Below Here
+	 ******************************************************************************************/
+	
 	function _addUser($userId) {
 
 		$gravatarHash = md5( strtolower( trim( $userId ) ) );
@@ -131,38 +154,23 @@ class wattquiz {
 		
 	} // end of addUser
 	
-	
-	/**
-	 * Get the leader board.
-	 */
-	function getLeaderboard() {
-		
-		$m = new Mongo();
-		$db = $m->wattquiz;
-		$collection = $db->wattUser;
-		$cursor = $collection->find();//TODO top n sorted by totalWatts
-		$leaderboard = iterator_to_array($cursor);
-		
-		return $leaderboard;
-		
-	}
-	
 	/**
 	* Get question based on user and previous question
 	*/
 
-	function getQuestionFromMongo($userId, $previousQuestionId){
+	function _getQuestionFromMongo($userId, $questionId){
 	
 		$m = new Mongo();
 		$db = $m->wattquiz;
 		$collection = $db->question;
 		//need to add user Id to query when complete
 
-		if (is_null($previousQuestionId) == false) {
-			$query = array('questionId' => array( '$gt' => $previousQuestionId  ));
-			$question = $collection->findOne( $query );
+		if (is_null($questionId) == false) {
+			//$query = array('questionId' => array( '$gt' => $previousQuestionId  ));
+			//$question = $collection->findOne( $query );
+			$question = $collection->findOne(array('questionId' => $questionId ));
 		} else {
-			$question = $collection->findOne();
+			$question = $collection->findOne(array('questionId' => 1 ));
 		}
 		
 		return $question;
