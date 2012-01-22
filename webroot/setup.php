@@ -1,6 +1,8 @@
 <?
 /** Seed Genability Mongo Database */
 
+phpinfo();
+
 // assumes connection to local database 
 
 // connect
