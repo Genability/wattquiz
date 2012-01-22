@@ -13,7 +13,7 @@ $GREEN_BUTTON_DATA = 1;
 if ($_POST['zipCode'] == '94109') {
 	$GREEN_BUTTON_DATA = 2;
 	//3 = lse doesn have it
-} else {
+} elseif ($_POST['zipCode']) {
 	$GREEN_BUTTON_DATA = 3;
 }
 
@@ -238,6 +238,7 @@ $('li.answer').live('click', function() {
 					if (data.answerTip) {
 						$('<p/>').attr('class', 'alert-message block-message success answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
 					}
+					$('.lightbulb').css('height', '50%');
 				} else {
 					$('.answer.info').removeClass('info').addClass('error');
 					if (data.answerTip) {
@@ -375,6 +376,12 @@ function uploadDone() {
 
 window.onload=init;
 </script>
+<? } else if($GREEN_BUTTON_DATA == 3) { ?>
+
+		<h3>Boo! Your utility does not have green button data.</h3>
+		<p>Tell them to give it to you.</p>
+
+		<input type="button" value="Start the Quiz">
 <? } else if(isset($_SESSION['userId'])) { ?>
 	<div class="row">
 		<div id="finishScreen" class="span11 alert-message block-message info answerExplanation" style="display: none;">
@@ -385,19 +392,11 @@ window.onload=init;
 		<div class="span5 quizStatus">
 			<h3>You have answered 4/10 questions correctly!</h3>
 			<div class="lightbulbCont">
-				<div class="lightbulb"></div>
+				<div class="lightbulb" style="height: 0%;"></div>
 			</div>
 			<h4>You have helped donate <span id="wattCount"><?=$USER["totalWatts"]?></span> watts!</h4>
 		</div>
 	</div>
-	
-<? } else if($GREEN_BUTTON_DATA == 3) { ?>
-
-		<h3>Boo! YYY does not have green button data.</h3>
-		<p>Tell them to give it to you.</p>
-
-		<input type="button" value="Start the Quiz">
-
 <? } else { ?>
 	<div class="row">
 		<h3>Sign up or Sign In</h3>
