@@ -288,24 +288,94 @@ $('li.answer').live('click', function() {
 
 		<h3>Awesome! Your utility has green button data!</h3>
 		<p>Get it from their site and upload here or email to greenbutton@wattquiz.com</p>
-		<form action="https://api.genability.com/rest/beta/usage/bulk?appId=6830fbc2&appKey=5811743465758e20a3fc15aee0853936" method="post" enctype="multipart/form-data">
+
+		<form id="profile_upload_form" action="https://api.genability.com/rest/beta/usage/bulk?appId=6830fbc2&appKey=5811743465758e20a3fc15aee0853936" method="post" enctype="multipart/form-data">
+			<iframe id="upload_target" name="upload_target" src="" style="display: none; width: 100px; height: 100px; border: 1px solid #ccc;">
+				<script type="text/javascript">
+					function init() {
+						if(top.uploadDone) top.uploadDone(); //top means parent frame.
+					}
+					window.onload=init;
+				</script>
+			</iframe>
 			<input type="hidden" name="accountId" value="<?=$USER["accountId"]?>"/>
 		  	<input type="hidden" name="sourceId" id="sourceId" value="<?=$USER["userId"]?>"/>
 		   	<input type="hidden" name="fileFormat" value="espi">
 
-		    <input type="file" name="fileData" id="fileData"/>
+			<input type="file" name="fileData" id="fileData"/>
 
-		    <input type="submit" value="Upload">
-
+<br/><br/>
+					
+			<a href="#" class="uploadProfile uploadGB alert-message block-message warning"><img src="static/images/green_button.jpg" style="width: 132px; height: 155px; vertical-align: middle;"/> Upload Green Button</a>
+					<span id="span_status"></span>
+					<span id="span_result"></span>
 		</form>
+<script>
+$('#fileData').change(function () {
+	if ($(this).val() != '') {
+		$("#chooseFormat").show();
+	} else {
+		$("#chooseFormat").hide();
+	}
+});
+
+$('.uploadGB').click(function (e) {
+	e.preventDefault();
+	$('input[name="fileFormat"]').val('espi');
+	$('#profile_upload_form').submit();
+});
+
+$('.uploadCSV').click(function (e) {
+	e.preventDefault();
+	$('input[name="fileFormat"]').val('');
+	$('#profile_upload_form').submit();
+});
+
+function init() {
+	//point the form to target the iframe
+	document.getElementById('profile_upload_form').onsubmit=function() {
+		document.getElementById('profile_upload_form').target = 'upload_target';
+		//document.getElementById("upload_target").onload = uploadDone;
+		$("#span_status").html('<img src="static/images/ajax-loader.gif"/> Uploading...');
+		setTimeout("window.location = window.location;",5000);
+	};                                              
+}         
+
+//This function gets called when the iframe is loaded
+function uploadDone() {
+	//check if response contained success or error text
+	var ret = frames['upload_target'].document.getElementsByTagName("body")[0].innerHTML;
+
+	//Clear out status fields
+	$("#span_status").html("");
+	$("#span_result").html("");
+
+	if (ret.indexOf("success") != -1) {
+		//Uploaded successfully.
+		$("#span_result").html("Upload successful").attr("class","uploadmsg uploadsuccess");
+	} else {
+		//Display message based on reason for failure.
+		if (ret.indexOf("overlapping") != -1) {
+			$("#span_result").html("Upload failed because of overlapping dates.").attr("class","uploadmsg");
+		} else if(ret.indexOf("message") != -1) {
+			var messageString=ret.substring(ret.indexOf("message")+10);
+			var message=messageString.substring(0,messageString.indexOf('"'));
+			$("#span_result").html(message).attr("class","uploadmsg");
+		} else {
+			$("#span_result").html("Upload failed.  Check the csv format.").attr("class","uploadmsg");
+		}
+	}
+}
+
+window.onload=init;
+</script>
 <? } else if(isset($_SESSION['userId'])) { ?>
 	<div class="row">
-		<div id="questionCont" class="span11">
-			<div class="alert-message block-message info answerExplanation">
+		<div class="span11 alert-message block-message info answerExplanation" style="display: none;">
 				<p>Thanks for playing! You helped donate XX watts of power! Share your score with friends and get them to play to raise even more energy awareness!</p><br/>
 				<a href="https://twitter.com/share" class="twitter-share-button" data-related="wattquiz" data-lang="en" data-size="large" data-count="none">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 			</div>
-		</div>
+		<div id="questionCont" class="span11"></div>
 		<div class="span5 quizStatus">
 			<h3>You have answered 4/10 questions correctly!</h3>
 			<div class="lightbulbCont">
