@@ -1,5 +1,7 @@
 <?php
 
+$QUESTION_ID;
+
 if ($_POST['questionId']) {
 	$QUESTION_ID = $_POST['questionId'];
 }
@@ -8,7 +10,10 @@ if ($_POST['answerId']) {
 	$ANSWER_ID = $_POST['answerId'];
 }
 
-$USER_ID = 'obama';
+// TODO - from session or cookie
+if ($_POST['userId']) {
+	$USER_ID = $_POST['userId'];
+}
 
 /** include the watt quiz services */
 require_once('wattquiz.php');

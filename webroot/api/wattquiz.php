@@ -64,14 +64,32 @@ class wattquiz {
 		// compare the answerId(s) passed in with the answerRank(s) in the DB
         $correct = false;
 		foreach($question[answers] as $answer) {
-		    if( $params['answerId'] == $answer['answerId'] && $answer['answerRank'] == "1") {
-			//if( $params['answerId'] == 'a') {
+		    if( $params['answerId'] == $answer['answerId'] && $answer['answerRank'] == 1) {
 			    $correct = true;
 				// TODO save answer here
+				
+				$m = new Mongo();
+				$db = $m->wattquiz;
+				$collection = $db->wattUser;
+				$collection->update(
+				    array('userId' => $userId),
+				    array('$inc' => array("questionsAnswered" => 1),
+				        '$inc' => array("totalWatts" => $question[wattValue]),
+				        '$set' => array("lastCorrectQuestionId" => $questionId), )
+				);
+				
 			    $questionId++;
 			    $question = $this->_getQuestionFromMongo($userId, $questionId);
+			    break;
 			}
-		}	
+		}
+		
+		$question = array_merge(
+			array(
+				'answerResult'	=> $correct,
+			),
+			$question
+		);
 		
 		if ($this->config['debug']) { echo $result; };
 		
@@ -132,24 +150,22 @@ class wattquiz {
 			'greenButtonCount' => 0,
 			'totalWatts' => 0,
 			'rank' => 0,
-			'lastCorrectAnswerId' => 0
+			'lastCorrectQuestionId' => 0
 		);
 				
 		// select the user collection 
 		$m = new Mongo();
 		$db = $m->wattquiz;
 		$collection = $db->wattUser;
-		//$collection.ensureIndex(array('userId' => 1), array('unique' => true));
 		$collection->insert($user);
 		
 		return $user;
 		
-	} // end of addUser
+	} // end of _addUser
 	
 	/**
 	* Get question based on user and previous question
 	*/
-
 	function _getQuestionFromMongo($userId, $questionId){
 	
 		$m = new Mongo();
@@ -164,7 +180,11 @@ class wattquiz {
 		}
 		
 		return $question;
-	}
+	
+	} // end of _getQuestionFromMongo
+	
+	
+	
 	
 }
 

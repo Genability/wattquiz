@@ -11,10 +11,13 @@ $m = new Mongo();
 // select a database
 $db = $m->wattquiz;
 
+
+$userCollection = $db->wattUser;
+$response = $userCollection->drop();
+
+
 // select a collection (analogous to a relational database's table)
 $collection = $db->question;
-
-//drop the question database and recreating
 $response = $collection->drop();
 print_r($response);
 
@@ -27,10 +30,10 @@ $question1 = array(
 			    'wattValue' => 1,
 			    'broughtBy' => 'Genability',
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => '49ers', 'answerRank' => '1'),
-			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => '2'),
-			        array('answerId' => 'c','answerValue' => 'Ravens', 'answerRank' => '3'),
-			        array('answerId' => 'd','answerValue' => 'Patriots', 'answerRank' => '4'),
+			        array('answerId' => 'a','answerValue' => '49ers', 'answerRank' => 1),
+			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => 2),
+			        array('answerId' => 'c','answerValue' => 'Ravens', 'answerRank' => 3),
+			        array('answerId' => 'd','answerValue' => 'Patriots', 'answerRank' => 4),
 			        )
 			);
 
@@ -41,10 +44,10 @@ $question2 = array(
 			    'wattValue' => 5,
 			    'broughtBy' => 'Acme questions',
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => 'Patriots', 'answerRank' => '4'),
-			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => '2'),
-			        array('answerId' => 'c','answerValue' => 'Ravens', 'answerRank' => '3'),
-			        array('answerId' => 'd','answerValue' => '49ers', 'answerRank' => '1'),
+			        array('answerId' => 'a','answerValue' => 'Patriots', 'answerRank' => 4),
+			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => 2),
+			        array('answerId' => 'c','answerValue' => 'Ravens', 'answerRank' => 3),
+			        array('answerId' => 'd','answerValue' => '49ers', 'answerRank' => 1),
 			        )
 			);
 
@@ -55,13 +58,13 @@ $question3 = array(
 			    'wattValue' => 7,
 			    'broughtBy' => 'Genability',
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => 'Ravens', 'answerRank' => '3'),
-			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => '2'),
-			        array('answerId' => 'c','answerValue' => '49ers', 'answerRank' => '1'),
-			        array('answerId' => 'd','answerValue' => 'Patriots', 'answerRank' => '4'),
+			        array('answerId' => 'a','answerValue' => 'Ravens', 'answerRank' => 3),
+			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => 2),
+			        array('answerId' => 'c','answerValue' => '49ers', 'answerRank' => 1),
+			        array('answerId' => 'd','answerValue' => 'Patriots', 'answerRank' => 4),
 			        )
 			);
-				
+
 				
 print_r("<br/>insterting new records");
 
@@ -69,6 +72,8 @@ $collection->insert($question1);
 $collection->insert($question2);
 $collection->insert($question3);
 
+// put index on wattUser
+//$collection.ensureIndex(array('userId' => 1), array('unique' => true));
 
 ?>
 
