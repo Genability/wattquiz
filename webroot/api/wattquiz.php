@@ -98,13 +98,14 @@ class wattquiz {
 			}
 		}
 		
-		$question = array_merge(
-			array(
-				'answerResult'	=> $correct,
-			),
-			$question
-		);
-		
+		if ($question){
+			$question = array_merge(
+				array(
+					'answerResult'	=> $correct,
+				),
+				$question
+			);
+		}
 		if ($this->config['debug']) { echo $result; };
 		
 		return $question;
@@ -209,8 +210,7 @@ class wattquiz {
 	
 	function _addGenAccount($userId) {
 		
-		//if ($key != "providerOrgId" && $key != "accountName" && $key != "customerOrgName" && $key != "providerAccountId")
-		
+		//if ($key != "providerOrgId" && $key != "accountName" && $key != "customerOrgName" && $key != "providerAccountId")		
 		$x = array(
 			//"providerOrgId" => "eecb537f-584b-40e4-91b6-2a615198ecdb",
 			"accountName" => "Green Button",
