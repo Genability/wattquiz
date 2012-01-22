@@ -44,17 +44,17 @@ class wattquiz {
 		if ($params['answeredCorrectly'] == true) {
 			// get the next question from mongodb using the userId and the questionId
 			$questionId = intval($params['previousQuestionId']) + 1;
-			$question = $this->_getQuestionFromMongo($params['userId'],$questionId);
+			$question = $this->_getQuestionFromMongo($questionId);
 		} else if ($params['answeredCorrectly'] == false) {
 			// get the next question from mongodb using the userId and the questionId
 			$questionId = intval($params['previousQuestionId']);
-			$question = $this->_getQuestionFromMongo($params['userId'],$questionId);
+			$question = $this->_getQuestionFromMongo($questionId);
 		} else if ($params['previousQuestionId']) {
 			$questionId = intval($params['previousQuestionId']) + 1;
-			$question = $this->_getQuestionFromMongo($params['userId'],$questionId);
+			$question = $this->_getQuestionFromMongo($questionId);
 		} else {
 			// get the first question from mongodb
-			$question = $this->_getQuestionFromMongo($params['userId'],1);
+			$question = $this->_getQuestionFromMongo(1);
 		}
 
 		if ($this->config['debug']) { echo $question; }
@@ -71,7 +71,7 @@ class wattquiz {
 
         $questionId = intval($params['questionId']);
 		$userId = $params['userId'];
-        $question = $this->_getQuestionFromMongo($userId,$questionId);
+        $question = $this->_getQuestionFromMongo($questionId);
 
 		// compare the answerId(s) passed in with the answerRank(s) in the DB
         $correct = false;
@@ -93,7 +93,7 @@ class wattquiz {
 				    array('$inc' => array("questionsAnswered" => 1))
 				);
 			    $questionId++;
-			    $question = $this->_getQuestionFromMongo($userId, $questionId);
+			    $question = $this->_getQuestionFromMongo($questionId);
 			    break;
 			}
 		}
@@ -181,7 +181,7 @@ class wattquiz {
 	/**
 	* Get question based on user and previous question
 	*/
-	function _getQuestionFromMongo($userId, $questionId){
+	function _getQuestionFromMongo($questionId){
 	
 		$m = new Mongo();
 		$db = $m->wattquiz;
@@ -212,10 +212,10 @@ class wattquiz {
 			
 		$result = $this->gen->addAccount($x);
 		
-		print_r($result);
+		print_r($result[status]);
 		
 		// check if account already exists
-		if($result["status"] == "error") {
+		if($result[status] = "error") {
 			$findAccount = array(
 				"providerAccountId" => $userId,
 				);
