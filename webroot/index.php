@@ -388,7 +388,7 @@ window.onload=init;
 </script>
 <? } else if($GREEN_BUTTON_DATA == 3) { ?>
 
-		<h3>Boo! Your utility does not have green button data.</h3>
+		<h3>Boo! Con Edison does not have green button data.</h3>
 		<p>Tell them to give it to you.</p>
 
 		<input type="button" value="Start the Quiz">
