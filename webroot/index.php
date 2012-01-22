@@ -1,6 +1,11 @@
+<?php
+session_start();
+if ($_POST['userId']) {
+	$_SESSION['userId'] = $_POST['userId'];
+}
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -228,15 +233,24 @@ $('li.answer').live('click', function() {
 	<p>A simple social quiz, a la freerice.com, that asks you questions and educates you about your energy. Correct answers generate watts that are donated to worthy charities.</p>
 </div>
 <div class="content">
-<div class="row">
-	<div id="questionCont" class="span11"></div>
-	<div class="span5 quizStatus">
-		<h3>You have answered 4/10 questions correctly!</h3>
-		<div class="lightbulbCont">
-			<div class="lightbulb"></div>
+<? if(isset($_SESSION['userId'])) { ?>
+	<div class="row">
+		<div id="questionCont" class="span11"></div>
+		<div class="span5 quizStatus">
+			<h3>You have answered 4/10 questions correctly!</h3>
+			<div class="lightbulbCont">
+				<div class="lightbulb"></div>
+			</div>
 		</div>
 	</div>
-</div>
+<? } else { ?>
+	<div class="row">
+		<form method="post" action=".">
+           Email:<input type="text" name="userId">
+		   <input type="submit" value="Go">
+		</form>
+	</div>
+<? } ?>
 </div>
 	
 <div class="poweredby">
