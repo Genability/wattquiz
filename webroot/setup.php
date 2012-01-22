@@ -28,7 +28,7 @@ $question1 = array(
 			    'questionText' => 'Which government initiative allows consumers to download their detailed energy usage?',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 1,
-			    'broughtBy' => 'Genability',
+			    'broughtBy' => 'Executive Office',
 			    'answerTip' => 'Green button is modelled after Blue Button but for details your energy use.',			    
 			    'answers' => array(
 			        array('answerId' => 'a','answerValue' => 'Blue Button', 'answerRank' => 3),
@@ -88,7 +88,7 @@ $question5 = array(
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 3,
 			    'broughtBy' => 'Genability',
-			    'answerTip' => 'What was your total consumption last month?',			    
+			    'answerTip' => 'Consumption rises in the winter months',			    
 			    'answers' => array(
 			        array('answerId' => 'a','answerValue' => '0-50 kWh', 'answerRank' => 1),
 			        array('answerId' => 'b','answerValue' => '50-200 kWh', 'answerRank' => 2),
@@ -145,11 +145,11 @@ $question9 = array(
 			    'questionText' => 'Who will win the super bowl this year?',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 3,
-			    'broughtBy' => 'Genability',
+			    'broughtBy' => 'San Francisco 49ers',
 			    'answerTip' => 'Your consumption went down during business hours.',			    
 			    'answers' => array(
 			        array('answerId' => 'a','answerValue' => 'New York Giants', 'answerRank' => 2),
-			        array('answerId' => 'b','answerValue' => 'San Francisco Niners', 'answerRank' => 1),
+			        array('answerId' => 'b','answerValue' => 'San Francisco 49ers', 'answerRank' => 1),
 			        array('answerId' => 'c','answerValue' => 'Baltimore Ravens', 'answerRank' => 3),
 			        array('answerId' => 'd','answerValue' => 'New England Patriots', 'answerRank' => 4)
 			        )
