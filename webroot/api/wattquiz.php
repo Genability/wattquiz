@@ -57,29 +57,22 @@ class wattquiz {
 	 */
 	function answerQuestion($params) {
 
-        if ($params['answerId'] == "a") {
-		    $correct = true;
-		}
-		else 
-		{
-			$correct = false;
-		}
-		
-		$questionId = $params['questionId'];
+        $questionId = intval($params['questionId']);
 		$userId = $params['userId'];
-		
-		//
-		// Save the answer with the user.
-		//
-		//TODO
-		
-		// get the appropriate question
-		$question = $this->getQuestion(array(
-		  'answeredCorrectly' => $correct,            // whether they got it right or not
-		  'previousQuestionId'=> $questionId,         // Unique ID for the previous question (Optional)
-		  'userId'            => $userId              // ID of the user answering the question (Required)
-		));
-	
+        $question = $this->_getQuestionFromMongo($userId,$questionId);
+
+		// compare the answerId(s) passed in with the answerRank(s) in the DB
+        $correct = false;
+
+		//foreach($question->answers as $answer) {
+		    //if( $params['answerId'] == $answer['answerId'] && $answer['answerRank'] == 1) {
+			if( $params['answerId'] == 'a') {
+			    $correct = true;
+				// TODO save answer here
+			    $questionId++;
+			    $question = $this->_getQuestionFromMongo($userId, $questionId);
+			}
+		//}	
 		
 		if ($this->config['debug']) { echo $result; };
 		
@@ -166,8 +159,6 @@ class wattquiz {
 		//need to add user Id to query when complete
 
 		if (is_null($questionId) == false) {
-			//$query = array('questionId' => array( '$gt' => $previousQuestionId  ));
-			//$question = $collection->findOne( $query );
 			$question = $collection->findOne(array('questionId' => $questionId ));
 		} else {
 			$question = $collection->findOne(array('questionId' => 1 ));
