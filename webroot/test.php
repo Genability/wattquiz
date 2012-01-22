@@ -32,6 +32,8 @@
 	
 	</form>
 	
+	<a href="api/leaderboard.php">leaderboard JSON</a>
+	
 
 </body>
 </html>

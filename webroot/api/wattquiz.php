@@ -178,20 +178,11 @@ class wattquiz {
 	 */
 	function getLeaderboard() {
 		
-		//$db = $this->$m->wattquiz;
-		//$collection = $db->wattUser;
-		//$cursor = $collection->find();// top n sorted by totalWatts
-		//$leaderboard = iterator_to_array($cursor);
-		
-		$leaderboard = array(
-			'_id' => 'obama',
-			'greenButtonCount' => 2,
-			'gravatarHash' => '',
-			'questionsAnswered' => 10,
-			'totalWatts' => 22,
-			'rank' => 1,
-			'lastCorrectAnswerId' => 1
-		);
+		$m = new Mongo();
+		$db = $m->wattquiz;
+		$collection = $db->wattUser;
+		$cursor = $collection->find();//TODO top n sorted by totalWatts
+		$leaderboard = iterator_to_array($cursor);
 		
 		return $leaderboard;
 		
