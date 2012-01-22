@@ -1,8 +1,31 @@
 <?php
 session_start();
+if ($_GET['logout']) {
+	echo("logging you out");
+	unset($_SESSION['userId']); 
+}
+
 if ($_POST['userId']) {
 	$_SESSION['userId'] = $_POST['userId'];
+	$USER_ID = $_POST['userId'];
+} 
+
+if(isset($_SESSION['userId'])) {
+
+	/** include the watt quiz services */
+	require_once('api/wattquiz.php');
+
+	// set your app id and app key
+	$wq = new wattquiz(array(
+	  'debug'   => false,                // Debug mode echos API Url & POST data if set to true (Optional)
+	));
+
+	// make the getUser call
+	$USER = $wq->getUser( $_SESSION['userId'] ); // ID of the user (Required)
+	
 }
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
