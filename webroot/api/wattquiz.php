@@ -214,7 +214,7 @@ class wattquiz {
 
 		if (is_null($previousQuestionId) == false) {
 			$query = array('questionId' => array( '$gt' => $previousQuestionId  ));
-			$question = $collection->find( $query );
+			$question = $collection->findOne( $query );
 		} else {
 			$question = $collection->findOne();
 		}
