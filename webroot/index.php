@@ -22,7 +22,6 @@ if(isset($_SESSION['userId'])) {
 
 	// make the getUser call
 	$USER = $wq->getUser( $_SESSION['userId'] ); // ID of the user (Required)
-	
 }
 
 
@@ -45,6 +44,11 @@ html, body {
 
 .topbar .fill {
 	height: 40px;
+	color: #ddd;
+}
+
+.topbar input {
+	height: 27px; //hax
 }
 
 .hero-unit {
@@ -116,6 +120,13 @@ li.answer .loader {
 
 .answerExplanation {
 	margin-top: 35px;
+}
+
+.gravatar {
+	width: 30px;
+	height: 30px;
+	margin-right: 10px;
+	vertical-align: top;
 }
 </style>
 
@@ -246,10 +257,17 @@ $('li.answer').live('click', function() {
 <div class="topbar">
 	<div class="fill">
 		<div class="container">
-			<form id="user" action="" class="pull-right">
-				<input id="userId" class="input-big" type="text" name="userId" placeholder="Email">
-				<button class="btn" type="submit">Sign in</button>
+			<?if ($USER["userId"]) { ?>
+			<form id="userx" action="?logout=true" method="post" class="pull-right">
+				<img class="gravatar" src="http://www.gravatar.com/avatar/<?=$USER["gravatarHash"]?>" /> Hey <?=$USER["userId"]?>
+				<button class="btn" type="submit">Log Out</button>
 			</form>
+			<?} else {?>
+			<form id="userx" action="" method="post" class="pull-right">
+				<input id="userId" class="input-big" type="text" name="userId" placeholder="Email">
+				<button class="btn" type="submit">Sign In</button>
+			</form>
+			<?}?>
 		</div>
 	</div>
 </div>
@@ -268,6 +286,7 @@ $('li.answer').live('click', function() {
 			<div class="lightbulbCont">
 				<div class="lightbulb"></div>
 			</div>
+			<h4>You have helped donate <span id="wattCount"><?=$USER["totalWatts"]?></span> watts!</h4>
 		</div>
 	</div>
 <? } else { ?>
