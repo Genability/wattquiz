@@ -87,6 +87,7 @@ print_r("<br/>insterting new records");
 $collection->insert($question1);
 $collection->insert($question2);
 $collection->insert($question3);
+$collection->insert($question4);
 
 // put index on wattUser
 //$collection.ensureIndex(array('userId' => 1), array('unique' => true));

@@ -105,6 +105,9 @@ class wattquiz {
 				),
 				$question
 			);
+		}else{
+			$question =
+				array('answerResult'	=> $correct);
 		}
 		if ($this->config['debug']) { echo $result; };
 		
