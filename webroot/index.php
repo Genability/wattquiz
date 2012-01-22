@@ -10,9 +10,11 @@ if ($_POST['userId']) {
 } 
 
 $GREEN_BUTTON_DATA = 1;
-if ($_POST['zipCode']) {
+if ($_POST['zipCode'] == '94109') {
 	$GREEN_BUTTON_DATA = 2;
 	//3 = lse doesn have it
+} else {
+	$GREEN_BUTTON_DATA = 3;
 }
 
 if(isset($_SESSION['userId'])) {
@@ -230,6 +232,7 @@ $('li.answer').live('click', function() {
 			success: function(data, textStatus) {
 				$('.answer .loader').remove();
 				console.log(data);
+				if (data.questionId) {
 				if (data.answerResult == true) {
 					$('.answer.info').removeClass('info').addClass('success');
 					if (data.answerTip) {
@@ -245,6 +248,9 @@ $('li.answer').live('click', function() {
 				$('.nextQuestion').click(function () {
 					displayQuestion(data);
 				});
+				} else {
+					$("#finishScreen").style('display', 'block');
+				}
 
 			},
 			error: function(xhr, textStatus, errorThrown) {
@@ -286,7 +292,7 @@ $('li.answer').live('click', function() {
 <div class="content">
 	<? if($GREEN_BUTTON_DATA == 2) { ?>
 
-		<h3>Awesome! Your utility has green button data!</h3>
+		<h3>Awesome! Pacific Gas & Electric has green button data!</h3>
 		<p>Get it from their site and upload here or email to greenbutton@wattquiz.com</p>
 
 		<form id="profile_upload_form" action="https://api.genability.com/rest/beta/usage/bulk?appId=6830fbc2&appKey=5811743465758e20a3fc15aee0853936" method="post" enctype="multipart/form-data">
@@ -371,7 +377,7 @@ window.onload=init;
 </script>
 <? } else if(isset($_SESSION['userId'])) { ?>
 	<div class="row">
-		<div class="span11 alert-message block-message info answerExplanation" style="display: none;">
+		<div id="finishScreen" class="span11 alert-message block-message info answerExplanation" style="display: none;">
 				<p>Thanks for playing! You helped donate XX watts of power! Share your score with friends and get them to play to raise even more energy awareness!</p><br/>
 				<a href="https://twitter.com/share" class="twitter-share-button" data-related="wattquiz" data-lang="en" data-size="large" data-count="none">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 			</div>
