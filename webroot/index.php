@@ -12,6 +12,7 @@ if ($_POST['userId']) {
 $GREEN_BUTTON_DATA = 1;
 if ($_POST['zipCode']) {
 	$GREEN_BUTTON_DATA = 2;
+	//3 = lse doesn have it
 }
 
 if(isset($_SESSION['userId'])) {
@@ -26,12 +27,8 @@ if(isset($_SESSION['userId'])) {
 
 	// make the getUser call
 	$USER = $wq->getUser( $_SESSION['userId'] ); // ID of the user (Required)
-<<<<<<< HEAD
-=======
-	
-	print_r($USER);
-	
->>>>>>> wired up the basic flow
+
+print_r($USER);
 }
 
 
