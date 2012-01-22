@@ -249,6 +249,9 @@ $('li.answer').live('click', function() {
 					}
 					$('<a/>').attr('class', 'btn big nextQuestion').text('Next Question').appendTo($('#questionCont'));
 					$('.lightbulb').css('height', data.questionId + '0%');
+					var newWatts = parseFloat($('#wattCount').text()) + data.wattValue;
+console.log(newWatts);
+					$('.wattCount').text(newWatts);
 				} else {
 					$('.answer.info').removeClass('info').addClass('error');
 					if (data.answerTip) {
@@ -260,7 +263,16 @@ $('li.answer').live('click', function() {
 					displayQuestion(data);
 				});
 				} else {
-					$("#finishScreen").style('display', 'block');
+					if (data.answerResult == true) {
+						$('.answer.info').removeClass('info').addClass('success');
+						$("#finishScreen").css('display', 'block');
+					} else {
+						$('.answer.info').removeClass('info').addClass('error');
+						if (data.answerTip) {
+							$('<p/>').attr('class', 'alert-message block-message error answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
+						}
+						$('<a/>').attr('class', 'btn big nextQuestion').text('Try Again').appendTo($('#questionCont'));
+					}
 				}
 
 			},
@@ -395,15 +407,24 @@ window.onload=init;
 <? } else if(isset($_SESSION['userId'])) { ?>
 	<div class="row">
 		<div id="finishScreen" class="span11 alert-message block-message info answerExplanation" style="display: none;">
-				<p>Thanks for playing! You helped donate XX watts of power! Share your score with friends and get them to play to raise even more energy awareness!</p><br/>
+				<h2>Thanks for playing! You helped donate <span class="wattCount"></span> watts of power! Share your score with friends and get them to play to raise even more energy awareness!</h2><br/>
 				<a href="https://twitter.com/share" class="twitter-share-button" data-related="wattquiz" data-lang="en" data-size="large" data-count="none">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=142685402497610";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+				<div class="fb-like" data-href="http://wattquiz.com" data-send="true" data-width="450" data-show-faces="true" data-action="recommend"></div>
 			</div>
 		<div id="questionCont" class="span11"></div>
 		<div class="span5 quizStatus">
 			<div class="lightbulbCont">
 				<div class="lightbulb" style="height: 0%;"></div>
 			</div>
-			<h4>You have helped donate <span id="wattCount"><?=$USER["totalWatts"]?></span> watts!</h4>
+			<h4>You have helped donate <span id="wattCount" class="wattCount"><?=$USER["totalWatts"]?></span> watts!</h4>
 		</div>
 	</div>
 <? } else { ?>
