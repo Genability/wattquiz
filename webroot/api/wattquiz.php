@@ -45,7 +45,7 @@ class wattquiz {
 			// get the next question from mongodb using the userId and the questionId
 			$questionId = intval($params['previousQuestionId']) + 1;
 			$question = $this->_getQuestionFromMongo($questionId);
-		} else if ($params['answeredCorrectly'] == false) {
+		} else if ($params['answeredCorrectly'] == false && $params['previousQuestionId']) {
 			// get the next question from mongodb using the userId and the questionId
 			$questionId = intval($params['previousQuestionId']);
 			$question = $this->_getQuestionFromMongo($questionId);
