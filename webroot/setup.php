@@ -25,16 +25,16 @@ $collection = $db->question;
 
 $question1 = array(
 			    'questionId' => 1, 
-			    'questionText' => 'Which team is the greatest?',
+			    'questionText' => 'Using 1008 kWh consumption this month, how much would you expect to pay for electricity in New York?',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 1,
 			    'broughtBy' => 'Genability',
-			    'answerTip' => 'You know this man!',			    
+			    'answerTip' => 'In the winter months, people use more electricity to heat their homes!',			    
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => '49ers', 'answerRank' => 1),
-			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => 2),
-			        array('answerId' => 'c','answerValue' => 'Ravens', 'answerRank' => 3),
-			        array('answerId' => 'd','answerValue' => 'Patriots', 'answerRank' => 4),
+			        array('answerId' => 'a','answerValue' => '$150-$250', 'answerRank' => 1),
+			        array('answerId' => 'b','answerValue' => '$250-$400', 'answerRank' => 2),
+			        array('answerId' => 'c','answerValue' => 'less than $150', 'answerRank' => 3),
+			        array('answerId' => 'd','answerValue' => 'over $400', 'answerRank' => 4),
 			        )
 			);
 
@@ -44,7 +44,7 @@ $question2 = array(
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 5,
 			    'broughtBy' => 'Acme questions',
-			    'answerTip' => 'You know this man!',			    
+			    'answerTip' => 'In the winter months, people use more electricity to heat their homes!',			    
 			    'answers' => array(
 			        array('answerId' => 'a','answerValue' => 'Patriots', 'answerRank' => 4),
 			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => 2),
