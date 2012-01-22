@@ -207,20 +207,19 @@ class wattquiz {
 
 	function getQuestionFromMongo($userId, $previousQuestionId){
 	
-	$m = new Mongo();
-	$db = $m->wattquiz;
-	$collection = $db->question;
-	//need to add user Id to query when complete
+		$m = new Mongo();
+		$db = $m->wattquiz;
+		$collection = $db->question;
+		//need to add user Id to query when complete
 
-	if (is_null($previousQuestionId) == false) {
-		$query = array("questionId" => $previousQuestionId );
-		$question = $collection->find( $query );
-	} else {
-		$question = $collection->findOne();
-	}
-
-	
-	return $question;
+		if (is_null($previousQuestionId) == false) {
+			$query = array('questionId' => array( '$gt' => $previousQuestionId  ));
+			$question = $collection->find( $query );
+		} else {
+			$question = $collection->findOne();
+		}
+		
+		return $question;
 	}
 	
 }
