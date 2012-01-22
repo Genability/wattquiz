@@ -70,8 +70,6 @@ $collection->insert($question2);
 $collection->insert($question3);
 
 
-
-
 ?>
 
 
