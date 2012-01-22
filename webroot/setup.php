@@ -120,9 +120,9 @@ $question7 = array(
 			    'broughtBy' => 'Genability',
 			    'answerTip' => 'Your consumption went down during business hours.',			    
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => '0-$30 kWh', 'answerRank' => 2),
-			        array('answerId' => 'b','answerValue' => '$30-$40 kWh', 'answerRank' => 1),
-			        array('answerId' => 'c','answerValue' => '$40-$50 kWh', 'answerRank' => 3),
+			        array('answerId' => 'a','answerValue' => '0-$30', 'answerRank' => 2),
+			        array('answerId' => 'b','answerValue' => '$30-$40', 'answerRank' => 1),
+			        array('answerId' => 'c','answerValue' => '$40-$50', 'answerRank' => 3),
 			        array('answerId' => 'd','answerValue' => '$50+ ', 'answerRank' => 4)
 			        )
 			);
