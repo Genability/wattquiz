@@ -63,16 +63,15 @@ class wattquiz {
 
 		// compare the answerId(s) passed in with the answerRank(s) in the DB
         $correct = false;
-
-		//foreach($question->answers as $answer) {
-		    //if( $params['answerId'] == $answer['answerId'] && $answer['answerRank'] == 1) {
-			if( $params['answerId'] == 'a') {
+		foreach($question[answers] as $answer) {
+		    if( $params['answerId'] == $answer['answerId'] && $answer['answerRank'] == "1") {
+			//if( $params['answerId'] == 'a') {
 			    $correct = true;
 				// TODO save answer here
 			    $questionId++;
 			    $question = $this->_getQuestionFromMongo($userId, $questionId);
 			}
-		//}	
+		}	
 		
 		if ($this->config['debug']) { echo $result; };
 		
