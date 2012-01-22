@@ -67,17 +67,91 @@ $question3 = array(
 			);
 
 $question4 = array(
-			    'questionId' => 3, 
+			    'questionId' => 4, 
 			    'questionText' => 'Which Utility services your location?',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 3,
 			    'broughtBy' => 'Genability',
 			    'answerTip' => 'Turning off heating and air conditionining when you\'re at work will save money on time of use based plans.',			    
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => 'Consolidated Edison Co-NY Inc', 'answerRank' => 1),
-			        array('answerId' => 'b','answerValue' => 'Pacific Gas and Electric', 'answerRank' => 2),
+			        array('answerId' => 'a','answerValue' => 'Consolidated Edison Co-NY Inc', 'answerRank' => 2),
+			        array('answerId' => 'b','answerValue' => 'Pacific Gas and Electric', 'answerRank' => 1),
 			        array('answerId' => 'c','answerValue' => 'New York Energy Savings Corp.', 'answerRank' => 3),
 			        array('answerId' => 'd','answerValue' => 'Clay Electric Cooperative, Inc', 'answerRank' => 4)
+			        )
+			);
+
+
+$question5 = array(
+			    'questionId' => 5, 
+			    'questionText' => 'What was your total consumption last month?',
+			    'questionType' => 'multi-choice',
+			    'wattValue' => 3,
+			    'broughtBy' => 'Genability',
+			    'answerTip' => 'What was your total consumption last month?',			    
+			    'answers' => array(
+			        array('answerId' => 'a','answerValue' => '0-50 kWh', 'answerRank' => 1),
+			        array('answerId' => 'b','answerValue' => '50-200 kWh', 'answerRank' => 2),
+			        array('answerId' => 'c','answerValue' => '200-500 kWh', 'answerRank' => 3),
+			        array('answerId' => 'd','answerValue' => '500-1000 kWh', 'answerRank' => 4)
+			        )
+			);
+
+$question6 = array(
+			    'questionId' => 6, 
+			    'questionText' => 'What was your monthly electricity bill last month?',
+			    'questionType' => 'multi-choice',
+			    'wattValue' => 3,
+			    'broughtBy' => 'Genability',
+			    'answerTip' => 'Your consumption went down during business hours.',			    
+			    'answers' => array(
+			        array('answerId' => 'a','answerValue' => '0-50 kWh', 'answerRank' => 1),
+			        array('answerId' => 'b','answerValue' => '50-200 kWh', 'answerRank' => 2),
+			        array('answerId' => 'c','answerValue' => '200-500 kWh', 'answerRank' => 3),
+			        array('answerId' => 'd','answerValue' => '500-1000 kWh', 'answerRank' => 4)
+			        )
+			);
+
+$question7 = array(
+			    'questionId' => 7, 
+			    'questionText' => 'What was your monthly electricity bill last month?',
+			    'questionType' => 'multi-choice',
+			    'wattValue' => 3,
+			    'broughtBy' => 'Genability',
+			    'answerTip' => 'Your consumption went down during business hours.',			    
+			    'answers' => array(
+			        array('answerId' => 'a','answerValue' => '0-$30 kWh', 'answerRank' => 2),
+			        array('answerId' => 'b','answerValue' => '$30-$40 kWh', 'answerRank' => 1),
+			        array('answerId' => 'c','answerValue' => '$40-$50 kWh', 'answerRank' => 3),
+			        array('answerId' => 'd','answerValue' => '$50+ ', 'answerRank' => 4)
+			        )
+			);
+
+$question8 = array(
+			    'questionId' => 8, 
+			    'questionText' => 'True or False: Would you save money by switching to a time of use rate plan?',
+			    'questionType' => 'multi-choice',
+			    'wattValue' => 3,
+			    'broughtBy' => 'Genability',
+			    'answerTip' => 'Your consumption went down during business hours.',			    
+			    'answers' => array(
+			        array('answerId' => 'a','answerValue' => 'True', 'answerRank' => 1),
+			        array('answerId' => 'b','answerValue' => 'False', 'answerRank' => 2)
+			        )
+			);			
+
+$question9 = array(
+			    'questionId' => 9, 
+			    'questionText' => 'Who will win the super bowl this year?',
+			    'questionType' => 'multi-choice',
+			    'wattValue' => 3,
+			    'broughtBy' => 'Genability',
+			    'answerTip' => 'Your consumption went down during business hours.',			    
+			    'answers' => array(
+			        array('answerId' => 'a','answerValue' => 'New York Giants', 'answerRank' => 2),
+			        array('answerId' => 'b','answerValue' => 'San Francisco Niners', 'answerRank' => 1),
+			        array('answerId' => 'c','answerValue' => 'Baltimore Ravens', 'answerRank' => 3),
+			        array('answerId' => 'd','answerValue' => 'New England Patriots', 'answerRank' => 4)
 			        )
 			);
 
@@ -88,6 +162,12 @@ $collection->insert($question1);
 $collection->insert($question2);
 $collection->insert($question3);
 $collection->insert($question4);
+$collection->insert($question5);
+$collection->insert($question6);
+$collection->insert($question7);
+$collection->insert($question8);
+$collection->insert($question9);
+
 
 // put index on wattUser
 //$collection.ensureIndex(array('userId' => 1), array('unique' => true));
