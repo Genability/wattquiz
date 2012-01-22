@@ -206,8 +206,7 @@ class wattquiz {
 	
 	} // end of _getQuestionFromMongo
 	
-	
-	
+		
 	function _addGenAccount($userId) {
 		
 		//if ($key != "providerOrgId" && $key != "accountName" && $key != "customerOrgName" && $key != "providerAccountId")		
@@ -232,7 +231,24 @@ class wattquiz {
 		
 		return $results;
 		
-	}
+	} // end of _addGenAccount
+	
+	function _getGenProfile($accountId) {
+
+		$req = array(
+			"accountId" => $accountId,
+			//"fromDateTime" = "2011-12-01T+00:00Z",
+			//"toDateTime" => "2012-01-01T+00:00Z",
+			"groupBy" => "DAY",
+			"clipBy" => "OUTER",
+			);
+			
+		$json = $this->gen->getProfile($req);
+		$results = json_decode($json, true);
+		
+		return $result;
+				
+	} // _getGenProfile
 	
 	
 }

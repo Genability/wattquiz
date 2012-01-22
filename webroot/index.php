@@ -1,7 +1,6 @@
 <?php
 session_start();
 if ($_GET['logout']) {
-	echo("logging you out");
 	unset($_SESSION['userId']); 
 }
 
@@ -9,6 +8,11 @@ if ($_POST['userId']) {
 	$_SESSION['userId'] = $_POST['userId'];
 	$USER_ID = $_POST['userId'];
 } 
+
+$GREEN_BUTTON_DATA = 1;
+if ($_POST['zipCode']) {
+	$GREEN_BUTTON_DATA = 2;
+}
 
 if(isset($_SESSION['userId'])) {
 
@@ -22,6 +26,12 @@ if(isset($_SESSION['userId'])) {
 
 	// make the getUser call
 	$USER = $wq->getUser( $_SESSION['userId'] ); // ID of the user (Required)
+<<<<<<< HEAD
+=======
+	
+	print_r($USER);
+	
+>>>>>>> wired up the basic flow
 }
 
 
@@ -278,7 +288,21 @@ $('li.answer').live('click', function() {
 	<p>A simple social quiz, a la freerice.com, that asks you questions and educates you about your energy. Correct answers generate watts that are donated to worthy charities.</p>
 </div>
 <div class="content">
-<? if(isset($_SESSION['userId'])) { ?>
+	<? if($GREEN_BUTTON_DATA == 2) { ?>
+
+		<h3>Congrats! XXX has green button data.</h3>
+		<p>Get it from their site and upload here or email to greenbutton@wattquiz.com</p>
+		<form action="https://api.genability.com/rest/beta/usage/bulk?appId=6830fbc2&appKey=5811743465758e20a3fc15aee0853936" method="post" enctype="multipart/form-data">
+			accountId:	<input type="text" name="accountId" value="<?$USER["accountId"]?>"/>
+		  	sourceId:   <input type="text" name="sourceId" id="sourceId" value="<?$USER["userId"]?>"/>
+		    fileFormat: <input type="text" name="fileFormat" value="espi">
+
+		    <input type="file" name="fileData" id="fileData"/>
+
+		    <input type="submit" value="Upload">
+
+		</form>
+<? } else if(isset($_SESSION['userId'])) { ?>
 	<div class="row">
 		<div id="questionCont" class="span11"></div>
 		<div class="span5 quizStatus">
@@ -289,12 +313,23 @@ $('li.answer').live('click', function() {
 			<h4>You have helped donate <span id="wattCount"><?=$USER["totalWatts"]?></span> watts!</h4>
 		</div>
 	</div>
+	
+<? } else if($GREEN_BUTTON_DATA == 3) { ?>
+
+		<h3>Boo! YYY does not have green button data.</h3>
+		<p>Tell them to give it to you.</p>
+
+		<input type="button" value="Start the Quiz">
+
 <? } else { ?>
 	<div class="row">
+		<h3>Sign up or Sign In</h3>
 		<form method="post" action=".">
-           Email:<input type="text" name="userId">
+			Email: <input type="text" name="userId">
+           Zipcode: <input type="text" name="zipCode">
 		   <input type="submit" value="Go">
 		</form>
+		
 	</div>
 <? } ?>
 </div>
