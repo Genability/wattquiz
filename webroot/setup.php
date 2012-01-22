@@ -29,6 +29,7 @@ $question1 = array(
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 1,
 			    'broughtBy' => 'Genability',
+			    'answerTip' => 'You know this man!',			    
 			    'answers' => array(
 			        array('answerId' => 'a','answerValue' => '49ers', 'answerRank' => 1),
 			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => 2),
@@ -43,6 +44,7 @@ $question2 = array(
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 5,
 			    'broughtBy' => 'Acme questions',
+			    'answerTip' => 'You know this man!',			    
 			    'answers' => array(
 			        array('answerId' => 'a','answerValue' => 'Patriots', 'answerRank' => 4),
 			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => 2),
@@ -57,6 +59,7 @@ $question3 = array(
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 7,
 			    'broughtBy' => 'Genability',
+			    'answerTip' => 'You know this man!',			    
 			    'answers' => array(
 			        array('answerId' => 'a','answerValue' => 'Ravens', 'answerRank' => 3),
 			        array('answerId' => 'b','answerValue' => 'Giants', 'answerRank' => 2),
