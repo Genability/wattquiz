@@ -191,11 +191,15 @@ $('li.answer').live('click', function() {
 				console.log(data);
 				if (data.answerResult == true) {
 					$('.answer.info').removeClass('info').addClass('success');
-					$('<p/>').attr('class', 'alert-message block-message success answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
+					if (data.answerTip) {
+						$('<p/>').attr('class', 'alert-message block-message success answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
+					}
 					$('<a/>').attr('class', 'btn big nextQuestion').text('Next Question').appendTo($('#questionCont'));
 				} else {
 					$('.answer.info').removeClass('info').addClass('error');
-					$('<p/>').attr('class', 'alert-message block-message error answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
+					if (data.answerTip) {
+						$('<p/>').attr('class', 'alert-message block-message error answerExplanation').text(data.answerTip).appendTo($('#questionCont'));
+					}
 					$('<a/>').attr('class', 'btn big nextQuestion').text('Next Question').appendTo($('#questionCont'));
 				}
 
