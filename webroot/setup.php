@@ -27,16 +27,16 @@ $collection = $db->question;
 
 $question1 = array(
 			    'questionId' => 1, 
-			    'questionText' => 'What was your total consumption last month?',
+			    'questionText' => 'Based on your last month\'s Green Button usage data, which tariff rate plan would save you the most money?',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 3,
 			    'broughtBy' => 'Genability',
-			    'answerTip' => 'Consumption rises in the winter months',			    
+			    'answerTip' => 'Based on your',			    
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => '0-50 kWh', 'answerRank' => 1),
-			        array('answerId' => 'b','answerValue' => '50-200 kWh', 'answerRank' => 2),
-			        array('answerId' => 'c','answerValue' => '200-500 kWh', 'answerRank' => 3),
-			        array('answerId' => 'd','answerValue' => '500-1000 kWh', 'answerRank' => 4)
+			        array('answerId' => 'a','answerValue' => 'Residential Services E-1 (Basic) (78.38)', 'answerRank' => 2),
+			        array('answerId' => 'b','answerValue' => 'Residential Services E-1 (All Electric)', 'answerRank' => 1),
+			        array('answerId' => 'c','answerValue' => 'E-6: Residential Time-Of-Use Service E-6 (52.84)', 'answerRank' => 1),
+			        array('answerId' => 'd','answerValue' => 'EResidential Time-Of-Use Service E-7 (All Electric)', 'answerRank' => 1)
 			        )
 			);
 
@@ -119,14 +119,16 @@ $question6 = array(
 
 $question7 = array(
 			    'questionId' => 7, 
-			    'questionText' => 'True or False: Would you save money by switching to a time of use rate plan?',
+			    'questionText' => 'Based on your last month\'s Green Button usage data, which tariff rate plan would save you the most money?',
 			    'questionType' => 'multi-choice',
 			    'wattValue' => 3,
 			    'broughtBy' => 'Genability',
-			    'answerTip' => 'Your consumption went down during business hours.',			    
+			    'answerTip' => 'Based on your',			    
 			    'answers' => array(
-			        array('answerId' => 'a','answerValue' => 'True', 'answerRank' => 1),
-			        array('answerId' => 'b','answerValue' => 'False', 'answerRank' => 2)
+			        array('answerId' => 'a','answerValue' => 'Residential Services E-1 (Basic) (78.38)', 'answerRank' => 2),
+			        array('answerId' => 'b','answerValue' => 'Residential Services E-1 (All Electric)', 'answerRank' => 1),
+			        array('answerId' => 'c','answerValue' => 'E-6: Residential Time-Of-Use Service E-6 (52.84)', 'answerRank' => 1),
+			        array('answerId' => 'd','answerValue' => 'EResidential Time-Of-Use Service E-7 (All Electric)', 'answerRank' => 1)
 			        )
 			);			
 

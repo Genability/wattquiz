@@ -400,7 +400,7 @@ window.onload=init;
 </script>
 <? } else if($GREEN_BUTTON_DATA == 3) { ?>
 
-		<h3>Boo! Con Edison does not have green button data.</h3>
+		<h1>Boo! Your utility does not have green button data.</h1>
 		<p>Tell them to give it to you.</p>
 
 		<input type="button" value="Start the Quiz">
@@ -429,17 +429,29 @@ window.onload=init;
 	</div>
 <? } else { ?>
 	<div class="row">
-		<h3>Sign up or Sign In</h3>
+		
+		<div class="span10">
+				<h1>Take the Quiz</h1>
+
 		<form method="post" action=".">
-			Email: <input type="text" name="userId">
-           Zipcode: <input type="text" name="zipCode">
-		   <input type="submit" value="Go">
+			<fieldset>
+				<div class="clearfix">
+			<label for"userId">Email</label><div class="input"><input type="text" name="userId" style="x-large"></div>
+			</div>
+			<div class="clearfix">
+           <label for"userId">Zipcode</label><div class="input"><input type="text" name="zipCode" style="x-large"></div>
+           </div>
+		   <input type="submit" value="Go" class="btn primary">
+		</fieldset>
 		</form>
+		
+		</div>
 		
 	</div>
 <? } ?>
 </div>
-	
+
+
 <div class="poweredby">
 	<div class="pb">using apis and data from</div>
 </div>
@@ -447,6 +459,7 @@ window.onload=init;
 	<img src="static/images/logos/nyc_opendata.png"/>
 	<img src="static/images/logos/genability.png"/>
 </div>
+
 
 <footer>
 </footer>
