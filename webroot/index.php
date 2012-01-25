@@ -30,9 +30,20 @@ if(isset($_SESSION['userId'])) {
 	// make the getUser call
 	$USER = $wq->getUser( $_SESSION['userId'] ); // ID of the user (Required)
 
-print_r($USER);
+//print_r($USER);
 }
 
+if ($_GET['city'] == 'san_francisco') {
+$dc = 'http://api.donorschoose.org/common/json_feed.html?subject4=7&state=CA&keywords=electricity&APIKey=mqv7gprb9vgu';
+} else {
+$dc = 'http://api.donorschoose.org/common/json_feed.html?subject4=7&state=NY&keywords=electricity&APIKey=mqv7gprb9vgu';
+}
+$result = file_get_contents($dc);
+$dc = json_decode($result);
+$rand_p = array_rand($dc->proposals, 1);
+//print_r($dc);
+
+$dcp = $dc->proposals[$rand_p];
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -150,6 +161,11 @@ li.answer .loader {
 	<script src="static/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 <script>
 $(function (){
+	$("#city").change(function () {
+		//console.log(window.location);
+		window.location = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname + "?city=" + $(this).val();
+	});
+
 	$("#user").submit(function (e) {
 		e.preventDefault();
 
@@ -304,7 +320,7 @@ console.log(newWatts);
 <div class="container">
 <div class="hero-unit">
 	<h1>Watt Quiz</h1>
-	<p>A simple social quiz, a la freerice.com, that asks you questions and educates you about your energy. Correct answers generate watts that are donated to worthy charities.</p>
+	<p>A simple social quiz, a la freerice.com, that asks you questions and educates you about your energy. Correct answers generate watts that are donated to worthy charities via DonorsChoose.org!</p>
 </div>
 <div class="content">
 	<? if($GREEN_BUTTON_DATA == 2) { ?>
@@ -401,7 +417,9 @@ window.onload=init;
 <? } else if(isset($_SESSION['userId'])) { ?>
 	<div class="row">
 		<div id="finishScreen" class="span11 alert-message block-message info answerExplanation" style="display: none;">
-				<h2>Thanks for playing! You helped donate <span class="wattCount"></span> watts of power! Share your score with friends and get them to play to raise even more energy awareness!</h2><br/>
+				<h2>Thanks for playing! You helped donate the equivalent of <span class="wattCount"></span> watts of power to a school via DonorsChoose.org! Share your score with friends and get them to play to raise even more energy awareness!</h2><br/>
+				<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('http://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a>
+				<br/><br/>
 				<a href="https://twitter.com/share" class="twitter-share-button" data-related="wattquiz" data-lang="en" data-size="large" data-count="none">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 				<div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -422,6 +440,8 @@ window.onload=init;
 		</div>
 	</div>
 <? } else { ?>
+	<div class="row">
+	<div class="span11">
 		<h1>Take the Quiz</h1>
 
 		<form method="post" action=".">
@@ -435,8 +455,8 @@ window.onload=init;
 			<label for"city">City</label>
 			<div class="input">
 				<select id="city" name="city" style="x-large">
-					<option value="new_york">New York, NY</option>
-					<option value="san_francisco">San Francisco, CA</option>
+					<option value="new_york"<?if ($_GET['city'] == 'new_york') echo ' selected';?>>New York, NY</option>
+					<option value="san_francisco"<?if ($_GET['city'] == 'san_francisco') echo ' selected';?>>San Francisco, CA</option>
 					<option disabled>More cities coming soon!</option>
 				</select>
 			</div>
@@ -445,6 +465,11 @@ window.onload=init;
 			<input type="submit" value="Go" class="btn primary">
 		</div>
 		</form>	
+	</div>
+	<div class="span5">
+		<h3>Today, you are playing for:</h3><a href="<?=$dcp->proposalURL?>" target="_blank"><img class="dcImage" src="<?=$dcp->imageURL?>"/><br/><?=$dcp->title?></a><br/><?=$dcp->teacherName?>'s class at <?=$dcp->schoolName?> in <strong><?=$dcp->city?>, <?=$dcp->state?></strong>
+	</div>
+	</div>
 <? } ?>
 </div>
 
@@ -455,6 +480,7 @@ window.onload=init;
 <div class="poweredbyLogos">
 	<a href="http://nycopendata.socrata.com/" target="_blank"><img src="static/images/logos/nyc_opendata.png"/></a>
 	<a href="http://genability.com/" target="_blank"><img src="static/images/logos/genability.png"/></a>
+	<a href="http://donorschoose.org/" target="_blank"><img src="static/images/logos/donorschoose.png"/></a>
 </div>
 
 
@@ -463,5 +489,6 @@ window.onload=init;
 
 </div>
 
+<script type="text/javascript" src="http://platform.tumblr.com/v1/share.js"></script>
 </body>
 </html>
