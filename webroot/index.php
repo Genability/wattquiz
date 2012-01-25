@@ -10,10 +10,10 @@ if ($_POST['userId']) {
 } 
 
 $GREEN_BUTTON_DATA = 1;
-if ($_POST['zipCode'] == '94109') {
+if ($_POST['city'] == 'san_francisco') {
 	$GREEN_BUTTON_DATA = 2;
 	//3 = lse doesn have it
-} elseif ($_POST['zipCode']) {
+} elseif ($_POST['city']) {
 	$GREEN_BUTTON_DATA = 3;
 }
 
@@ -113,11 +113,11 @@ html, body {
 	font-size: 3em;
 }
 
-.poweredByLogos {
+.poweredbyLogos {
 	text-align: center;
 }
 
-.poweredByLogos img {
+.poweredbyLogos img {
 	margin-right: 50px;
 }
 
@@ -289,24 +289,18 @@ console.log(newWatts);
 
 <body>
 
+<?if ($USER["userId"]) { ?>
 <div class="topbar">
 	<div class="fill">
 		<div class="container">
-			<?if ($USER["userId"]) { ?>
 			<form id="userx" action="?logout=true" method="post" class="pull-right">
 				<img class="gravatar" src="http://www.gravatar.com/avatar/<?=$USER["gravatarHash"]?>" /> Hey <?=$USER["userId"]?>
 				<button class="btn" type="submit">Log Out</button>
 			</form>
-			<?} else {?>
-			<form id="userx" action="" method="post" class="pull-right">
-				<input id="userId" class="input-big" type="text" name="userId" placeholder="Email">
-				<button class="btn" type="submit">Sign In</button>
-			</form>
-			<?}?>
 		</div>
 	</div>
 </div>
-
+<?}?>
 <div class="container">
 <div class="hero-unit">
 	<h1>Watt Quiz</h1>
@@ -400,8 +394,8 @@ window.onload=init;
 </script>
 <? } else if($GREEN_BUTTON_DATA == 3) { ?>
 
-		<h1>Boo! Your utility does not have green button data.</h1>
-		<p>Tell them to give it to you.</p>
+		<h1>Boo! Con Edison of New York does not have green button data.</h1>
+		<p>Tell them to give it to you. in the meanwhile, you can take a generic quiz about New York energy!</p>
 
 		<input type="button" value="Start the Quiz">
 <? } else if(isset($_SESSION['userId'])) { ?>
@@ -428,26 +422,29 @@ window.onload=init;
 		</div>
 	</div>
 <? } else { ?>
-	<div class="row">
-		
-		<div class="span10">
-				<h1>Take the Quiz</h1>
+		<h1>Take the Quiz</h1>
 
 		<form method="post" action=".">
-			<fieldset>
-				<div class="clearfix">
-			<label for"userId">Email</label><div class="input"><input type="text" name="userId" style="x-large"></div>
+		<div class="clearfix">
+			<label for"userId">Email</label>
+			<div class="input">
+				<input id="userId" type="text" name="userId" style="x-large">
 			</div>
-			<div class="clearfix">
-           <label for"userId">Zipcode</label><div class="input"><input type="text" name="zipCode" style="x-large"></div>
-           </div>
-		   <input type="submit" value="Go" class="btn primary">
-		</fieldset>
-		</form>
-		
 		</div>
-		
-	</div>
+		<div class="clearfix">
+			<label for"city">City</label>
+			<div class="input">
+				<select id="city" name="city" style="x-large">
+					<option value="new_york">New York, NY</option>
+					<option value="san_francisco">San Francisco, CA</option>
+					<option disabled>More cities coming soon!</option>
+				</select>
+			</div>
+		</div>
+		<div class="actions">
+			<input type="submit" value="Go" class="btn primary">
+		</div>
+		</form>	
 <? } ?>
 </div>
 
@@ -456,8 +453,8 @@ window.onload=init;
 	<div class="pb">using apis and data from</div>
 </div>
 <div class="poweredbyLogos">
-	<img src="static/images/logos/nyc_opendata.png"/>
-	<img src="static/images/logos/genability.png"/>
+	<a href="http://nycopendata.socrata.com/" target="_blank"><img src="static/images/logos/nyc_opendata.png"/></a>
+	<a href="http://genability.com/" target="_blank"><img src="static/images/logos/genability.png"/></a>
 </div>
 
 
