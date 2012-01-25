@@ -52,7 +52,10 @@ $dcp = $dc->proposals[$rand_p];
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-	<title>Watt Quiz</title>
+	<title>wattQuiz</title>
+
+	<meta name="description" content="A simple social quiz, a la freerice.com, that asks you questions and educates you about your energy. Correct answers generate watts that are donated to worthy charities via DonorsChoose.org!"/>
+	<meta name="keywords" content="wattQuiz, Watt Quiz, electricity quiz, genability, cleanweb, cleanweb hackathon, nyc big apps"/>
 
 	<link rel="stylesheet" href="static/css/bootstrap.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Qwigley' rel='stylesheet' type='text/css'>
@@ -164,6 +167,11 @@ $(function (){
 	$("#city").change(function () {
 		//console.log(window.location);
 		window.location = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname + "?city=" + $(this).val();
+	});
+
+	$("#startNY").click(function() {
+		setTimeout("window.location = window.location;",4000);
+		$("#NYstatus").html('<img src="static/images/ajax-loader.gif"/> Generating Quiz...');
 	});
 
 	$("#user").submit(function (e) {
@@ -319,7 +327,7 @@ console.log(newWatts);
 <?}?>
 <div class="container">
 <div class="hero-unit">
-	<h1>Watt Quiz</h1>
+	<h1>wattQuiz</h1>
 	<p>A simple social quiz, a la freerice.com, that asks you questions and educates you about your energy. Correct answers generate watts that are donated to worthy charities via DonorsChoose.org!</p>
 </div>
 <div class="content">
@@ -413,7 +421,8 @@ window.onload=init;
 		<h1>Boo! Con Edison of New York does not have green button data.</h1>
 		<p>Tell them to give it to you. in the meanwhile, you can take a generic quiz about New York energy!</p>
 
-		<input type="button" value="Start the Quiz">
+		<input id="startNY" class="btn large primary" type="button" value="Start the Quiz">
+		<span id="NYstatus"></span>
 <? } else if(isset($_SESSION['userId'])) { ?>
 	<div class="row">
 		<div id="finishScreen" class="span11 alert-message block-message info answerExplanation" style="display: none;">
